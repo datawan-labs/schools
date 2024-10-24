@@ -14,11 +14,16 @@ export default defineConfig({
         "@": resolve(__dirname, "./src"),
       },
     },
+    optimizeDeps: {
+      exclude: ["@duckdb/duckdb-wasm"],
+    },
+    server: {
+      watch: {
+        usePolling: true,
+      },
+    },
   },
   server: {
     static: true,
-    prerender: {
-      crawlLinks: true,
-    },
   },
 });

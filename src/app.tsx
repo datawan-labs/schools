@@ -2,10 +2,10 @@ import "@/styles/app.css";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/plus-jakarta-sans";
 
-import { Suspense } from "solid-js";
+import { Suspense, createSignal } from "solid-js";
 import { Router } from "@solidjs/router";
+import { MetaProvider } from "@solidjs/meta";
 import { FileRoutes } from "@solidjs/start/router";
-import { MetaProvider, Title } from "@solidjs/meta";
 
 export default function App() {
   return (

@@ -8,13 +8,16 @@
     "lint": "biome check --verbose --write ."
   },
   "dependencies": {
+    "@duckdb/duckdb-wasm": "^1.29.0",
     "@fontsource-variable/jetbrains-mono": "^5.1.1",
     "@fontsource-variable/plus-jakarta-sans": "^5.1.0",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.14.10",
     "@solidjs/start": "^1.0.9",
+    "apache-arrow": "^17.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "maplibre-gl": "5.0.0-pre.3",
     "solid-js": "^1.9.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
