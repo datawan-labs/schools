@@ -26,6 +26,12 @@ importers:
       '@fontsource-variable/plus-jakarta-sans':
         specifier: ^5.1.0
         version: 5.1.0
+      '@loaders.gl/core':
+        specifier: ^4.3.1
+        version: 4.3.1
+      '@loaders.gl/wkt':
+        specifier: ^4.3.1
+        version: 4.3.1(@loaders.gl/core@4.3.1)
       '@solidjs/meta':
         specifier: ^0.29.4
         version: 0.29.4(solid-js@1.9.3)
@@ -757,6 +763,11 @@ packages:
 
   '@loaders.gl/tiles@4.3.1':
     resolution: {integrity: sha512-/1lM/5y6zdPKUH9xdhCURHfHhk9nDk0eBAlKiHZPe/WFWGlNLaaDqbElMhuwUE91r6qZfYdkMeN+/ROEVmRqNw==}
+    peerDependencies:
+      '@loaders.gl/core': ^4.3.0
+
+  '@loaders.gl/wkt@4.3.1':
+    resolution: {integrity: sha512-nu8DXO0E5iaG6EE85uFJBsuqyNIvHkUAb/TLBVHnwIDkj5mFiKzomB4llF3wfOYkivriFttEgOanvp+DEcORkA==}
     peerDependencies:
       '@loaders.gl/core': ^4.3.0
 
@@ -4276,6 +4287,13 @@ snapshots:
       '@math.gl/geospatial': 4.1.0
       '@math.gl/web-mercator': 4.1.0
       '@probe.gl/stats': 4.0.9
+
+  '@loaders.gl/wkt@4.3.1(@loaders.gl/core@4.3.1)':
+    dependencies:
+      '@loaders.gl/core': 4.3.1
+      '@loaders.gl/gis': 4.3.1(@loaders.gl/core@4.3.1)
+      '@loaders.gl/loader-utils': 4.3.1(@loaders.gl/core@4.3.1)
+      '@loaders.gl/schema': 4.3.1(@loaders.gl/core@4.3.1)
 
   '@loaders.gl/wms@4.3.1(@loaders.gl/core@4.3.1)':
     dependencies:

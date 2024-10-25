@@ -14,15 +14,13 @@ export default function Home() {
           class="absolute top-0 left-0 size-full"
           mapStyle="https://maps.datawan.id/styles/dark.json"
           mapView={{
-            center: {
-              lng: -122.4,
-              lat: 37.74,
-            },
-            zoom: 11,
+            center: [99.3589766, 1.7851095],
+            zoom: 10,
+            pitch: 15,
           }}
         />
         <Layers />
-        <div class="absolute bg-white">
+        <div class="absolute bg-white top-0 left-0">
           <Suspense fallback="loading...">
             <Sidebar />
           </Suspense>
