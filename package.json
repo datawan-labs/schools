@@ -8,6 +8,9 @@
     "lint": "biome check --verbose --write ."
   },
   "dependencies": {
+    "@deck.gl/core": "^9.0.34",
+    "@deck.gl/layers": "^9.0.34",
+    "@deck.gl/mapbox": "^9.0.34",
     "@duckdb/duckdb-wasm": "^1.29.0",
     "@fontsource-variable/jetbrains-mono": "^5.1.1",
     "@fontsource-variable/plus-jakarta-sans": "^5.1.0",
@@ -17,8 +20,9 @@
     "apache-arrow": "^17.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "deck.gl": "^9.0.34",
     "maplibre-gl": "5.0.0-pre.3",
-    "solid-js": "^1.9.2",
+    "solid-js": "^1.9.3",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "vinxi": "^0.4.3"

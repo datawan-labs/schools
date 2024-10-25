@@ -1,3 +1,5 @@
+import "maplibre-gl/dist/maplibre-gl.css";
+
 import { cn } from "@/libs/classnames";
 import * as maplibre from "maplibre-gl";
 import {
