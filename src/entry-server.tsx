@@ -11,7 +11,7 @@ export default createHandler(() => (
           <link rel="icon" href="/favicon.svg" />
           {assets}
         </head>
-        <body>
+        <body data-kb-theme="dark">
           <div id="app">{children}</div>
           {scripts}
         </body>

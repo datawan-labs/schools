@@ -1,9 +1,10 @@
+import { Title } from "@solidjs/meta";
 import { lazy, Suspense } from "solid-js";
 import { Layers } from "@/components/interfaces/layers";
 import { MapInstance, MapProvider } from "@/components/ui/maps";
-import { Title } from "@solidjs/meta";
+import Widget from "@/components/interfaces/widget";
 
-const Sidebar = lazy(() => import("@/components/interfaces/sidebar"));
+// const Sidebar = lazy(() => import("@/components/interfaces/sidebar"));
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Title>Indonesia Schools</Title>
       <MapProvider>
         <MapInstance
+          attributionControl={false}
           class="absolute top-0 left-0 size-full"
           mapStyle="https://maps.datawan.id/styles/dark.json"
           mapView={{
@@ -20,11 +22,7 @@ export default function Home() {
           }}
         />
         <Layers />
-        <div class="absolute bg-white top-0 left-0">
-          <Suspense fallback="loading...">
-            <Sidebar />
-          </Suspense>
-        </div>
+        <Widget />
       </MapProvider>
     </main>
   );

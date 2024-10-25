@@ -9,7 +9,7 @@ await connection.send(`LOAD spatial;`);
 
 await db.registerFileURL(
   "final.parquet",
-  "http://localhost:3000/final.parquet",
+  `${window.location.origin}/final.parquet`,
   DuckDBDataProtocol.HTTP,
   false
 );

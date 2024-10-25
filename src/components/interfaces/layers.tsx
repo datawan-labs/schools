@@ -1,11 +1,11 @@
-import { store } from "@/stores";
+import { worker } from "@/stores";
 import { ScatterplotLayer } from "@deck.gl/layers";
-import { createEffect, createSignal, onCleanup } from "solid-js";
-import { DeckGLOverlay } from "@/components/ui/deck-gl";
+import { createSignal, onCleanup } from "solid-js";
+import { DeckGLOverlay } from "@/components/ui/maps";
 
-export const usePointLayer = (props: { data: Float64Array }) => {
+const usePointLayer = (props: { data: Float64Array }) => {
   return new ScatterplotLayer({
-    id: "schools-point",
+    id: "point",
     data: {
       length: props.data.length / 2,
       attributes: {
@@ -13,15 +13,13 @@ export const usePointLayer = (props: { data: Float64Array }) => {
       },
     },
     getFillColor: [255, 140, 0],
-    getLineColor: [0, 0, 0],
-    getLineWidth: 10,
     radiusScale: 1000,
     radiusUnits: "meters",
     pickable: true,
   });
 };
 
-export const Layers = () => {
+const usePointDataLayer = () => {
   const [data, setData] = createSignal<Float64Array>(new Float64Array(), {
     equals: false,
   });
@@ -30,9 +28,15 @@ export const Layers = () => {
 
   const processMessage = (e: MessageEvent<Float64Array>) => setData(e.data);
 
-  store.worker.addEventListener("message", processMessage);
+  worker.point.addEventListener("message", processMessage);
 
-  onCleanup(() => store.worker.removeEventListener("message", processMessage));
+  onCleanup(() => worker.point.removeEventListener("message", processMessage));
+
+  return layer;
+};
+
+export const Layers = () => {
+  const layer = usePointDataLayer();
 
   return <DeckGLOverlay layers={[layer()]} />;
 };
