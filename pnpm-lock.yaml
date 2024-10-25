@@ -11,24 +11,12 @@ importers:
       '3':
         specifier: ^2.1.0
         version: 2.1.0
-      '@codemirror/autocomplete':
-        specifier: ^6.18.1
-        version: 6.18.1(@codemirror/language@6.10.3)(@codemirror/state@6.4.1)(@codemirror/view@6.34.1)(@lezer/common@1.2.3)
-      '@codemirror/commands':
-        specifier: ^6.7.1
-        version: 6.7.1
       '@codemirror/lang-sql':
         specifier: ^6.8.0
         version: 6.8.0(@codemirror/view@6.34.1)
-      '@codemirror/state':
-        specifier: ^6.4.1
-        version: 6.4.1
       '@codemirror/theme-one-dark':
         specifier: ^6.1.2
         version: 6.1.2
-      '@codemirror/view':
-        specifier: ^6.34.1
-        version: 6.34.1
       '@corvu/drawer':
         specifier: ^0.2.2
         version: 0.2.2(solid-js@1.9.3)

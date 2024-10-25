@@ -1,17 +1,24 @@
 import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
-import { tableFromIPC } from "apache-arrow";
+import { tableFromIPC, tableToIPC } from "apache-arrow";
+
+export type WorkerPointData = {
+  points: Float64Array;
+  table: Uint8Array;
+};
 
 /**
  * this woker handle data transformation and preparation before
- * can be usage in layaer.
+ * can be usage in layer.
+ *
+ *
  */
 self.onmessage = async (event: MessageEvent<Uint8Array>) => {
   const table = tableFromIPC(event.data);
 
   const WKBArray = table.getChild("location")?.toArray() as Array<Uint8Array>;
 
-  const result: Float64Array = new Float64Array(WKBArray.length * 2);
+  const points: Float64Array = new Float64Array(WKBArray.length * 2);
 
   const invalidCoord = new Float64Array([0, 0]);
 
@@ -28,12 +35,17 @@ self.onmessage = async (event: MessageEvent<Uint8Array>) => {
 
     const coordinates = (pointWKB as WKB).positions.value;
 
-    result[offset] = coordinates[0];
+    points[offset] = coordinates[0];
 
-    result[offset + 1] = coordinates[1];
+    points[offset + 1] = coordinates[1];
 
     offset += 2;
   }
 
-  (self as unknown as Worker).postMessage(result, [result.buffer]);
+  const buffer = tableToIPC(table);
+
+  (self as unknown as Worker).postMessage({ points, table: buffer }, [
+    points.buffer,
+    buffer.buffer,
+  ]);
 };

@@ -141,19 +141,19 @@ export const DeckGLOverlay = (props: MapboxOverlayProps) => {
    * nvm, just remove and add control again
    */
   createEffect(() => {
-    const map = useMap()?.();
+    const map = useContext(MapContext)?.map;
 
-    if (map?.hasControl(overlay)) map?.removeControl(overlay);
+    if (map?.()?.hasControl(overlay)) map?.()?.removeControl(overlay);
 
     overlay = new MapboxOverlay(props);
 
-    if (!map?.hasControl(overlay)) map?.addControl(overlay);
+    if (!map?.()?.hasControl(overlay)) map?.()?.addControl(overlay);
   });
 
   onCleanup(() => {
-    const map = useMap()?.();
+    const map = useContext(MapContext)?.map;
 
-    map?.removeControl(overlay);
+    map?.()?.removeControl(overlay);
   });
 
   return null;
