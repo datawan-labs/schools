@@ -1,6 +1,6 @@
 import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
-import { tableFromIPC, tableToIPC } from "apache-arrow";
+import { tableFromIPC, Vector } from "apache-arrow";
 
 export type WorkerPointInput = {
   table: Uint8Array;
@@ -30,7 +30,7 @@ self.onmessage = async (event: MessageEvent<WorkerPointInput>) => {
 
   const radius = table.getChild("radius");
 
-  const WKBCoords = table.getChild("location")?.toArray() as Array<Uint8Array>;
+  const WKBCoords = table.getChild("location") || [];
 
   const flatCoordinates = new Float64Array(WKBCoords.length * 2);
 
@@ -39,7 +39,7 @@ self.onmessage = async (event: MessageEvent<WorkerPointInput>) => {
   const invalidCoord = new Float64Array([0, 0]);
 
   for (let index = 0; index < WKBCoords.length; index++) {
-    const coord = WKBCoords[index];
+    const coord = (WKBCoords as Vector).get(index);
 
     const offset = 2 * index;
 

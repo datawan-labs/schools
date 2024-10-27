@@ -6,12 +6,13 @@ import { CodeEditor } from "@/components/ui/code-editor";
 import { ShellWrapper } from "./shell/wrapper";
 
 const defaultQuery = `SELECT 
-  ST_AsWKB(location) as location 
+  500 AS radius,
+  ST_AsWKB(location) AS location 
 FROM 
   final.parquet 
 WHERE 
   location_status = 'valid' 
-LIMIT 200;`;
+LIMIT 10000;`;
 
 const PointExecutor = () => {
   const [signal, setSignal] = createSignal(defaultQuery);
