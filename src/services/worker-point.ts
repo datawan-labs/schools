@@ -2,50 +2,71 @@ import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
 import { tableFromIPC, tableToIPC } from "apache-arrow";
 
-export type WorkerPointData = {
-  points: Float64Array;
+export type WorkerPointInput = {
   table: Uint8Array;
+};
+
+export type WorkerPointData = {
+  /**
+   * IPC buffer for apache arrow tables
+   */
+  table: Uint8Array;
+  /**
+   * radius buffer for radius size each cell
+   */
+  radius: Uint16Array;
+  /**
+   * coordinates buffer
+   */
+  coordinates: Float64Array;
 };
 
 /**
  * this woker handle data transformation and preparation before
  * can be usage in layer.
- *
- *
  */
-self.onmessage = async (event: MessageEvent<Uint8Array>) => {
-  const table = tableFromIPC(event.data);
+self.onmessage = async (event: MessageEvent<WorkerPointInput>) => {
+  const table = tableFromIPC(event.data.table);
 
-  const WKBArray = table.getChild("location")?.toArray() as Array<Uint8Array>;
+  const radius = table.getChild("radius");
 
-  const points: Float64Array = new Float64Array(WKBArray.length * 2);
+  const WKBCoords = table.getChild("location")?.toArray() as Array<Uint8Array>;
+
+  const flatCoordinates = new Float64Array(WKBCoords.length * 2);
+
+  const flatRadius = new Uint16Array(WKBCoords.length);
 
   const invalidCoord = new Float64Array([0, 0]);
 
-  let offset = 0;
-  for (const e of WKBArray) {
+  for (let index = 0; index < WKBCoords.length; index++) {
+    const coord = WKBCoords[index];
+
+    const offset = 2 * index;
+
     type WKB = { positions: { value: Float64Array } };
 
     /**
-     * parsing wellknown
+     * parsing wellknown binary to FLoat64
      */
-    const pointWKB = await load(e, WKBLoader, { worker: false }).catch(() => {
+    const point = await load(coord, WKBLoader, { worker: false }).catch(() => {
       return { positions: { value: invalidCoord } };
     });
 
-    const coordinates = (pointWKB as WKB).positions.value;
+    const coordinates = (point as WKB).positions.value;
 
-    points[offset] = coordinates[0];
+    flatCoordinates[offset] = coordinates[0];
 
-    points[offset + 1] = coordinates[1];
+    flatCoordinates[offset + 1] = coordinates[1];
 
-    offset += 2;
+    flatRadius[index] = radius?.get(index) ?? 50;
   }
 
-  const buffer = tableToIPC(table);
-
-  (self as unknown as Worker).postMessage({ points, table: buffer }, [
-    points.buffer,
-    buffer.buffer,
-  ]);
+  (self as unknown as Worker).postMessage(
+    {
+      table: event.data.table,
+      radius: flatRadius,
+      coordinates: flatCoordinates,
+    },
+    [event.data.table.buffer, flatRadius.buffer, flatCoordinates.buffer]
+  );
 };

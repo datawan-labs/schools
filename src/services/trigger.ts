@@ -2,6 +2,7 @@ import { db } from "@/libs/duck";
 import { worker } from "@/stores";
 import { toast } from "solid-sonner";
 import { tableToIPC } from "apache-arrow";
+import { WorkerPointInput } from "./worker-point";
 
 const connection = await db.connect();
 
@@ -16,5 +17,5 @@ export const getPoint = async (query: string) => {
 
   const table = tableToIPC(result);
 
-  worker.point.postMessage(table, [table.buffer]);
+  worker.point.postMessage({ table } as WorkerPointInput, [table.buffer]);
 };

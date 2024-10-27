@@ -7,7 +7,11 @@ import { DeckGLOverlay } from "@/components/ui/maps";
 import type { WorkerPointData } from "@/services/worker-point";
 
 type LayerProps = {
-  data: Float64Array;
+  data: {
+    radius: Uint16Array;
+
+    coordinates: Float64Array;
+  };
 
   onHover?: (index: number) => void;
 };
@@ -16,14 +20,14 @@ const usePointLayer = (props: LayerProps) =>
   new ScatterplotLayer({
     id: "point",
     pickable: true,
-    radiusScale: 1000,
     radiusUnits: "meters",
     getFillColor: [255, 140, 0],
     onHover: (e) => props.onHover?.(e.index),
     data: {
-      length: props.data.length / 2,
+      length: props.data.coordinates.length / 2,
       attributes: {
-        getPosition: { value: props.data, size: 2 },
+        getRadius: { value: props.data.radius, size: 1 },
+        getPosition: { value: props.data.coordinates, size: 2 },
       },
     },
   });
@@ -34,7 +38,10 @@ const usePointLayer = (props: LayerProps) =>
 const usePointDataLayer = () => {
   const [table, setTable] = createSignal<Table>();
 
-  const [data, setData] = createSignal<Float64Array>(new Float64Array());
+  const [data, setData] = createSignal<LayerProps["data"]>({
+    radius: new Uint16Array(),
+    coordinates: new Float64Array(),
+  });
 
   const showTooltip = (index: number) =>
     console.log(table()?.get(index)?.toJSON());
@@ -42,7 +49,7 @@ const usePointDataLayer = () => {
   const layer = () => usePointLayer({ data: data(), onHover: showTooltip });
 
   const processMessage = (e: MessageEvent<WorkerPointData>) => {
-    setData(e.data.points);
+    setData({ radius: e.data.radius, coordinates: e.data.coordinates });
 
     setTable(tableFromIPC(e.data.table));
 

@@ -11,7 +11,7 @@ FROM
   final.parquet 
 WHERE 
   location_status = 'valid' 
-LIMIT 10000;`;
+LIMIT 200;`;
 
 const PointExecutor = () => {
   const [signal, setSignal] = createSignal(defaultQuery);
