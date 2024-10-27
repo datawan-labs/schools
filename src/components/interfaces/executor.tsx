@@ -1,20 +1,24 @@
 import "@/services/setup";
-import { createSignal } from "solid-js";
 import { getPoint } from "@/services/trigger";
 import { Button } from "@/components/ui/button";
+import { createSignal, onMount } from "solid-js";
 import { CodeEditor } from "@/components/ui/code-editor";
+import { ShellWrapper } from "./shell/wrapper";
 
 const defaultQuery = `SELECT 
   ST_AsWKB(location) as location 
 FROM 
   final.parquet 
 WHERE 
-  location_status = 'valid' LIMIT 10000;`;
+  location_status = 'valid' 
+LIMIT 10000;`;
 
 const PointExecutor = () => {
   const [signal, setSignal] = createSignal(defaultQuery);
 
   const run = () => getPoint(signal());
+
+  onMount(() => run());
 
   return (
     <div class="flex w-full flex-col gap-4">
@@ -22,6 +26,7 @@ const PointExecutor = () => {
       <Button onclick={run} class="uppercase">
         execute
       </Button>
+      <ShellWrapper />
     </div>
   );
 };

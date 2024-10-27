@@ -29,6 +29,9 @@ importers:
       '@duckdb/duckdb-wasm':
         specifier: ^1.29.0
         version: 1.29.0
+      '@duckdb/duckdb-wasm-shell':
+        specifier: 1.29.0
+        version: 1.29.0
       '@fontsource-variable/jetbrains-mono':
         specifier: ^5.1.1
         version: 5.1.1
@@ -56,6 +59,9 @@ importers:
       '@tabler/icons-solidjs':
         specifier: ^3.20.0
         version: 3.20.0(solid-js@1.9.3)
+      '@xterm/xterm':
+        specifier: ^5.5.0
+        version: 5.5.0
       apache-arrow:
         specifier: ^17.0.0
         version: 17.0.0
@@ -412,6 +418,9 @@ packages:
 
   '@deno/shim-deno@0.19.2':
     resolution: {integrity: sha512-q3VTHl44ad8T2Tw2SpeAvghdGOjlnLPDNO2cpOxwMrBE/PVas6geWpbpIgrM+czOCH0yejp0yi8OaTuB+NU40Q==}
+
+  '@duckdb/duckdb-wasm-shell@1.29.0':
+    resolution: {integrity: sha512-qfpeb7fFzFKMFrU36InfW7KQrsIW6f9/2rAwnrVKizW5Y5yCal/82muL07c9buMb+KRhoUQHe/CL9TurfvKUwA==}
 
   '@duckdb/duckdb-wasm@1.29.0':
     resolution: {integrity: sha512-8Zq7vafQuIz9gklC/9375KE38UlkaS2n8+yvG+/JK7irm3DjwYNJHL4xfplIj0bSHFIg6we5XhWYFqtE/vO3+Q==}
@@ -1553,6 +1562,9 @@ packages:
 
   '@webcomponents/shadycss@1.11.2':
     resolution: {integrity: sha512-vRq+GniJAYSBmTRnhCYPAPq6THYqovJ/gzGThWbgEZUQaBccndGTi1hdiUP15HzEco0I6t4RCtXyX0rsSmwgPw==}
+
+  '@xterm/xterm@5.5.0':
+    resolution: {integrity: sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==}
 
   '@zip.js/zip.js@2.7.52':
     resolution: {integrity: sha512-+5g7FQswvrCHwYKNMd/KFxZSObctLSsQOgqBSi0LzwHo3li9Eh1w5cF5ndjQw9Zbr3ajVnd2+XyiX85gAetx1Q==}
@@ -3740,6 +3752,28 @@ packages:
     engines: {node: '>= 0.10.0'}
     hasBin: true
 
+  xterm-addon-fit@0.8.0:
+    resolution: {integrity: sha512-yj3Np7XlvxxhYF/EJ7p3KHaMt6OdwQ+HDu573Vx1lRXsVxOcnVJs51RgjZOouIZOczTsskaS+CpXspK81/DLqw==}
+    deprecated: This package is now deprecated. Move to @xterm/addon-fit instead.
+    peerDependencies:
+      xterm: ^5.0.0
+
+  xterm-addon-web-links@0.9.0:
+    resolution: {integrity: sha512-LIzi4jBbPlrKMZF3ihoyqayWyTXAwGfu4yprz1aK2p71e9UKXN6RRzVONR0L+Zd+Ik5tPVI9bwp9e8fDTQh49Q==}
+    deprecated: This package is now deprecated. Move to @xterm/addon-web-links instead.
+    peerDependencies:
+      xterm: ^5.0.0
+
+  xterm-addon-webgl@0.16.0:
+    resolution: {integrity: sha512-E8cq1AiqNOv0M/FghPT+zPAEnvIQRDbAbkb04rRYSxUym69elPWVJ4sv22FCLBqM/3LcrmBLl/pELnBebVFKgA==}
+    deprecated: This package is now deprecated. Move to @xterm/addon-webgl instead.
+    peerDependencies:
+      xterm: ^5.0.0
+
+  xterm@5.3.0:
+    resolution: {integrity: sha512-8QqjlekLUFTrU6x7xck1MsPzPA571K5zNqWm0M0oroYEWVOptZ0+ubQSkQ3uxIEhcIHRujJy6emDWX4A7qyFzg==}
+    deprecated: This package is now deprecated. Move to @xterm/xterm instead.
+
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
     engines: {node: '>=10'}
@@ -4216,6 +4250,14 @@ snapshots:
     dependencies:
       '@deno/shim-deno-test': 0.5.0
       which: 4.0.0
+
+  '@duckdb/duckdb-wasm-shell@1.29.0':
+    dependencies:
+      '@duckdb/duckdb-wasm': 1.29.0
+      xterm: 5.3.0
+      xterm-addon-fit: 0.8.0(xterm@5.3.0)
+      xterm-addon-web-links: 0.9.0(xterm@5.3.0)
+      xterm-addon-webgl: 0.16.0(xterm@5.3.0)
 
   '@duckdb/duckdb-wasm@1.29.0':
     dependencies:
@@ -5436,6 +5478,8 @@ snapshots:
       vinxi: 0.4.3(@types/node@22.7.7)(ioredis@5.4.1)(terser@5.36.0)
 
   '@webcomponents/shadycss@1.11.2': {}
+
+  '@xterm/xterm@5.5.0': {}
 
   '@zip.js/zip.js@2.7.52': {}
 
@@ -7732,6 +7776,20 @@ snapshots:
     dependencies:
       commander: 2.20.3
       cssfilter: 0.0.10
+
+  xterm-addon-fit@0.8.0(xterm@5.3.0):
+    dependencies:
+      xterm: 5.3.0
+
+  xterm-addon-web-links@0.9.0(xterm@5.3.0):
+    dependencies:
+      xterm: 5.3.0
+
+  xterm-addon-webgl@0.16.0(xterm@5.3.0):
+    dependencies:
+      xterm: 5.3.0
+
+  xterm@5.3.0: {}
 
   y18n@5.0.8: {}
 
