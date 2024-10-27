@@ -2,9 +2,10 @@ import "@/styles/app.css";
 import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/plus-jakarta-sans";
 
-import { Suspense, createSignal } from "solid-js";
+import { Suspense } from "solid-js";
 import { Router } from "@solidjs/router";
 import { MetaProvider } from "@solidjs/meta";
+import { Toaster } from "./components/ui/sonner";
 import { FileRoutes } from "@solidjs/start/router";
 
 export default function App() {
@@ -12,7 +13,10 @@ export default function App() {
     <Router
       root={(props) => (
         <MetaProvider>
-          <Suspense>{props.children}</Suspense>
+          <Suspense>
+            {props.children}
+            <Toaster />
+          </Suspense>
         </MetaProvider>
       )}
     >

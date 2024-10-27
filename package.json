@@ -8,7 +8,6 @@
     "lint": "biome check --verbose --write ."
   },
   "dependencies": {
-    "3": "^2.1.0",
     "@codemirror/lang-sql": "^6.8.0",
     "@codemirror/theme-one-dark": "^6.1.2",
     "@corvu/drawer": "^0.2.2",

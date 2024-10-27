@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '3':
-        specifier: ^2.1.0
-        version: 2.1.0
       '@codemirror/lang-sql':
         specifier: ^6.8.0
         version: 6.8.0(@codemirror/view@6.34.1)
@@ -107,14 +104,6 @@ importers:
         version: 3.4.14
 
 packages:
-
-  2@1.0.2:
-    resolution: {integrity: sha512-G0Eca6Fz2qJKvjM9/niouz5kWTZy7pm+LRAMXir5v+DOt4bMszVlfIYKy2T+TPKnGxpp236pzK7/chNuToWlnQ==}
-    engines: {node: '>=7.0.0'}
-
-  3@2.1.0:
-    resolution: {integrity: sha512-rEoeK/qBZCLzqt9a3Q3Dnb5TUyXnZlxVaWr9ZXBV65Ppzcz59dx3Ik5YUxtni+36CtZgJdhQaYkLgHBdqjxjoA==}
-    engines: {node: '>=7.0.0'}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1814,9 +1803,6 @@ packages:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
 
-  chunk-array@1.0.2:
-    resolution: {integrity: sha512-NdHMmQ59t0VOwG+md2fYfLbmeaN1ZeX+4rEKgOj2vqgJsuXyTvSgYLZ9jEU8xwmB4nm6DeuuAkU/Y67LpGlvHQ==}
-
   citty@0.1.6:
     resolution: {integrity: sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==}
 
@@ -2148,9 +2134,6 @@ packages:
   encodeurl@2.0.0:
     resolution: {integrity: sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==}
     engines: {node: '>= 0.8'}
-
-  enforce-range@1.0.0:
-    resolution: {integrity: sha512-iOYthPljA5P/S823In8avtTbeUl8/uTP1+pqy08ryb8jeMO2enuIO/f72QFFqT4GTNiOe0yWPIzXB9nR3u6O5A==}
 
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
@@ -3791,14 +3774,6 @@ packages:
     resolution: {integrity: sha512-v3fyjpK8S/dpY/X5WxqTK3IoCnp/ZOLxn144GZVlNUjtwAchzrVo03h+oMATFhCIiJ5KTr4V3vDQQYz4RU684g==}
 
 snapshots:
-
-  2@1.0.2: {}
-
-  3@2.1.0:
-    dependencies:
-      '2': 1.0.2
-      chunk-array: 1.0.2
-      enforce-range: 1.0.0
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -5730,8 +5705,6 @@ snapshots:
 
   chownr@2.0.0: {}
 
-  chunk-array@1.0.2: {}
-
   citty@0.1.6:
     dependencies:
       consola: 3.2.3
@@ -6003,10 +5976,6 @@ snapshots:
   encodeurl@1.0.2: {}
 
   encodeurl@2.0.0: {}
-
-  enforce-range@1.0.0:
-    dependencies:
-      '2': 1.0.2
 
   entities@4.5.0: {}
 

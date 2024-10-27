@@ -1,4 +1,5 @@
 import { worker } from "@/stores";
+import { toast } from "solid-sonner";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import { Table, tableFromIPC } from "apache-arrow";
 import { createSignal, onCleanup } from "solid-js";
@@ -44,6 +45,8 @@ const usePointDataLayer = () => {
     setData(e.data.points);
 
     setTable(tableFromIPC(e.data.table));
+
+    toast.info("displaying data");
   };
 
   worker.point.addEventListener("message", processMessage);
