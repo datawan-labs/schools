@@ -13,6 +13,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Legend } from "./legend";
 
 const Widgets = lazy(() => import("@/components/widget/widget-wrapper"));
 
@@ -97,11 +98,28 @@ const DrawerContainer = () => {
   );
 };
 
+const LegendContainer = () => {
+  return (
+    <Card class="hidden lg:flex lg:flex-col">
+      <CardContent class="p-0">
+        <Legend />
+      </CardContent>
+    </Card>
+  );
+};
+
 export const Widget = () => {
   return (
-    <div class="absolute bottom-0 w-full p-4 lg:top-0 lg:bottom-auto lg:left-0 lg:max-w-sm">
-      <SidebarContainer />
-      <DrawerContainer />
+    <div>
+      <div class="absolute w-full p-4 lg:top-0 lg:bottom-auto lg:left-0 lg:max-w-sm">
+        <SidebarContainer />
+      </div>
+      <div class="absolute bottom-0 w-full p-4">
+        <DrawerContainer />
+      </div>
+      <div class="absolute p-4 lg:top-0 lg:right-0 lg:bottom-auto lg:max-w-sm">
+        <LegendContainer />
+      </div>
     </div>
   );
 };

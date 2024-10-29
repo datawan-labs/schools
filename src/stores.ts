@@ -25,7 +25,7 @@ const layer = createMutable<{
 }>({
   point: {
     query:
-      "SELECT ST_AsWKB(location) as location, 500 as radius FROM final.parquet",
+      "SELECT jenjang as color, ST_AsWKB(location) as location, 500 as radius FROM final.parquet LIMIT 10000;",
     color: {
       code: "Viridis",
       alpha: 255,
