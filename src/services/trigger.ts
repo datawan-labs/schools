@@ -1,8 +1,9 @@
 import { db } from "@/libs/duck";
-import { worker } from "@/stores";
 import { toast } from "solid-sonner";
+import { layer, worker } from "@/stores";
 import { tableToIPC } from "apache-arrow";
 import { WorkerPointInput } from "./worker-point";
+import { unwrap } from "solid-js/store";
 
 const connection = await db.connect();
 
@@ -17,5 +18,8 @@ export const getPoint = async (query: string) => {
 
   const table = tableToIPC(result);
 
-  worker.point.postMessage({ table } as WorkerPointInput, [table.buffer]);
+  worker.point.postMessage(
+    { table, color: unwrap(layer.point.color)! } as WorkerPointInput,
+    [table.buffer]
+  );
 };

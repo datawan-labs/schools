@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "solid-js";
 import { useMap } from "@/components/ui/maps";
+import { WidgetLoader } from "./widget-loader";
 import { Button } from "@/components/ui/button";
 import DatawanLogo from "@/assets/text-dark.png";
 import { DATAWAN_MAPS_STYLE } from "@/libs/maps";
@@ -13,9 +14,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const Executor = lazy(() => import("@/components/interfaces/executor"));
+const Widgets = lazy(() => import("@/components/widget/widget-wrapper"));
 
-export const SidebarWrapper = () => {
+const SidebarContainer = () => {
   const map = useMap();
 
   /**
@@ -69,25 +70,25 @@ export const SidebarWrapper = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <Suspense fallback="loading...">
-          <Executor />
+        <Suspense fallback={<WidgetLoader />}>
+          <Widgets />
         </Suspense>
       </CardContent>
     </Card>
   );
 };
 
-export const DrawerWrapper = () => {
+const DrawerContainer = () => {
   return (
-    <div class="flex flex-col items-center justify-center lg:hidden">
+    <div class="flex w-full flex-col items-center justify-center lg:hidden">
       <Drawer>
-        <DrawerTrigger>
-          <Button class="uppercase">open</Button>
+        <DrawerTrigger as={Button} class="w-full flex-1 uppercase">
+          settings
         </DrawerTrigger>
         <DrawerContent>
           <div class="m-auto w-full max-w-lg">
             <Suspense fallback="loading...">
-              <Executor />
+              <Widgets />
             </Suspense>
           </div>
         </DrawerContent>
@@ -96,13 +97,11 @@ export const DrawerWrapper = () => {
   );
 };
 
-const Widget = () => {
+export const Widget = () => {
   return (
     <div class="absolute bottom-0 w-full p-4 lg:top-0 lg:bottom-auto lg:left-0 lg:max-w-sm">
-      <SidebarWrapper />
-      <DrawerWrapper />
+      <SidebarContainer />
+      <DrawerContainer />
     </div>
   );
 };
-
-export default Widget;

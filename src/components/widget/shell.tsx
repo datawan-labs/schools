@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "solid-js";
 import { Button } from "@/components/ui/button";
 import { IconTerminal } from "@tabler/icons-solidjs";
+import { WidgetLoader } from "@/components/widget/widget-loader";
 import {
   Dialog,
   DialogTitle,
@@ -9,9 +10,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const Shell = lazy(() => import("@/components/interfaces/shell/shell"));
+const Shell = lazy(() => import("@/components/widget/shell-canvas"));
 
-export const ShellWrapper = () => {
+export const ShellWidget = () => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -25,7 +26,7 @@ export const ShellWrapper = () => {
           <DialogTitle>Shell</DialogTitle>
         </DialogHeader>
         <div class="relative w-full overflow-hidden">
-          <Suspense fallback="loading...">
+          <Suspense fallback={<WidgetLoader />}>
             <Shell />
           </Suspense>
         </div>

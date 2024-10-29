@@ -1,4 +1,3 @@
-// import "xterm/css/xterm.css";
 import "@xterm/xterm/css/xterm.css";
 
 import { db } from "@/libs/duck";
@@ -6,7 +5,7 @@ import { onMount } from "solid-js";
 import * as shell from "@duckdb/duckdb-wasm-shell";
 import shellWasm from "@duckdb/duckdb-wasm-shell/dist/shell_bg.wasm?url";
 
-const Shell = () => {
+const ShellCanvas = () => {
   let container: HTMLDivElement;
 
   onMount(() => {
@@ -27,4 +26,4 @@ const Shell = () => {
   );
 };
 
-export default Shell;
+export default ShellCanvas;

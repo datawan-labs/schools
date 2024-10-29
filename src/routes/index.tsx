@@ -1,7 +1,7 @@
 import { Title } from "@solidjs/meta";
-import { Layers } from "@/components/interfaces/layers";
+import { Widget } from "@/components/widget";
+import { Layers } from "@/components/layers";
 import { MapInstance, MapProvider } from "@/components/ui/maps";
-import Widget from "@/components/interfaces/widget";
 
 export default function Home() {
   return (

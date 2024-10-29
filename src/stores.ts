@@ -1,4 +1,5 @@
-import { createStore } from "solid-js/store";
+import { ColorConfig } from "./libs/colors";
+import { createStore, createMutable } from "solid-js/store";
 
 /**
  * we save worker to store so we can use it anywhere
@@ -13,4 +14,25 @@ const [worker] = createStore({
   }),
 });
 
-export { worker };
+interface LayerProps {
+  query: string;
+  color?: ColorConfig;
+  legend?: Set<string>;
+}
+
+const layer = createMutable<{
+  point: LayerProps;
+}>({
+  point: {
+    query:
+      "SELECT ST_AsWKB(location) as location, 500 as radius FROM final.parquet",
+    color: {
+      code: "Viridis",
+      alpha: 255,
+      length: 8,
+      reverse: false,
+    },
+  },
+});
+
+export { worker, layer };
