@@ -1,23 +1,11 @@
-import { worker } from "@/stores";
-import { WorkerPointData } from "@/services/worker-point";
-import { createSignal, For, onCleanup, Show } from "solid-js";
+import { layer } from "@/stores";
+import { For, Show } from "solid-js";
 
 export const Legend = () => {
-  const [legend, setLegend] = createSignal<WorkerPointData["legend"]>(
-    new Map()
-  );
-
-  const updateLegend = (e: MessageEvent<WorkerPointData>) =>
-    setLegend(e.data.legend);
-
-  worker.point.addEventListener("message", updateLegend);
-
-  onCleanup(() => worker.point.removeEventListener("message", updateLegend));
-
   return (
-    <Show when={legend().size > 0}>
+    <Show when={layer.point.legend!.size > 0}>
       <div class="p-4">
-        <For each={[...legend().entries()]}>
+        <For each={[...layer.point.legend!.entries()]}>
           {([key, value]) => (
             <div class="flex flex-row justify-between space-x-2">
               <div
@@ -27,7 +15,9 @@ export const Legend = () => {
                 }}
               />
               <div class="flex flex-1 flex-row items-center justify-between space-x-2 text-xs">
-                <div class="font-bold ">{key || "Others"}</div>
+                <div class="line-clamp-1 max-w-24 font-bold">
+                  {key || "Others"}
+                </div>
                 <div class="text-right font-mono text-muted-foreground">
                   ({value.total})
                 </div>

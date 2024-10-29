@@ -14,15 +14,24 @@ const [worker] = createStore({
   }),
 });
 
-interface LayerProps {
+export type Legend = Map<
+  string | number | undefined,
+  {
+    total: number;
+    /**
+     * [r, g, b, alpha]
+     */
+    color: [number, number, number, number];
+  }
+>;
+
+interface LayerStore {
   query: string;
   color?: ColorConfig;
-  legend?: Set<string>;
+  legend?: Legend;
 }
 
-const layer = createMutable<{
-  point: LayerProps;
-}>({
+const layer = createMutable<{ point: LayerStore }>({
   point: {
     query:
       "SELECT jenjang as color, ST_AsWKB(location) as location, 500 as radius FROM final.parquet LIMIT 10000;",
@@ -32,6 +41,7 @@ const layer = createMutable<{
       length: 8,
       reverse: false,
     },
+    legend: new Map(),
   },
 });
 

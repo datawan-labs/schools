@@ -1,5 +1,5 @@
-import { worker } from "@/stores";
 import { toast } from "solid-sonner";
+import { layer, worker } from "@/stores";
 import { Table, tableFromIPC } from "apache-arrow";
 import { createSignal, onCleanup } from "solid-js";
 import type { WorkerPointData } from "@/services/worker-point";
@@ -65,7 +65,7 @@ export const usePointDataLayer = () => {
   const showTooltip = (index: number) =>
     console.log(table()?.get(index)?.toJSON());
 
-  const layer = () => usePointLayer({ data: data(), onHover: showTooltip });
+  const points = () => usePointLayer({ data: data(), onHover: showTooltip });
 
   const processMessage = (e: MessageEvent<WorkerPointData>) => {
     setData({
@@ -76,12 +76,14 @@ export const usePointDataLayer = () => {
 
     setTable(tableFromIPC(e.data.table));
 
-    toast.info(`finishing process in ${e.data.timer}`);
+    layer.point.legend = e.data.legend;
+
+    toast.info(`finishing process in ${e.data.timer} ms`);
   };
 
   worker.point.addEventListener("message", processMessage);
 
   onCleanup(() => worker.point.removeEventListener("message", processMessage));
 
-  return layer;
+  return points;
 };

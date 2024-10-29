@@ -1,3 +1,4 @@
+import { Legend } from "@/stores";
 import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
 import { tableFromIPC, Vector } from "apache-arrow";
@@ -10,18 +11,6 @@ export type WorkerPointInput = {
   table: Uint8Array;
   color: ColorConfig;
 };
-
-type LegendKey = string | number | undefined;
-
-type LegendValue = {
-  total: number;
-  /**
-   * [r, g, b, alpha]
-   */
-  color: [number, number, number, number];
-};
-
-type Legend = Map<LegendKey, LegendValue>;
 
 /**
  * value thet exported from this worker

@@ -31,7 +31,7 @@ const SidebarContainer = () => {
     );
 
   return (
-    <Card class="hidden w-full lg:flex lg:flex-col">
+    <Card class="hidden w-full overflow-hidden lg:flex lg:flex-col">
       <CardHeader class="flex w-full flex-row items-center justify-between border-b py-1">
         <CardTitle>
           <Tooltip>
@@ -70,7 +70,7 @@ const SidebarContainer = () => {
           </Tooltip>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent class="overflow-auto">
         <Suspense fallback={<WidgetLoader />}>
           <Widgets />
         </Suspense>
@@ -111,7 +111,7 @@ const LegendContainer = () => {
 export const Widget = () => {
   return (
     <div>
-      <div class="absolute w-full p-4 lg:top-0 lg:bottom-auto lg:left-0 lg:max-w-sm">
+      <div class="absolute z-10 flex max-h-svh w-full flex-col overflow-hidden p-4 lg:top-0 lg:bottom-auto lg:left-0 lg:max-w-sm">
         <SidebarContainer />
       </div>
       <div class="absolute bottom-0 w-full p-4">
