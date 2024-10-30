@@ -101,7 +101,7 @@ const DrawerContainer = () => {
 const LegendContainer = () => {
   return (
     <Card class="hidden overflow-hidden lg:flex lg:flex-col">
-      <CardContent class="p-0 overflow-auto">
+      <CardContent class="overflow-auto p-0">
         <Legend />
       </CardContent>
     </Card>

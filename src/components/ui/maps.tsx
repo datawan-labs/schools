@@ -17,7 +17,6 @@ import {
   createMemo,
 } from "solid-js";
 import { MapboxOverlay, MapboxOverlayProps } from "@deck.gl/mapbox";
-import { P } from "node_modules/@kobalte/core/dist/popper-root-4f4dc506";
 
 export type ViewOptions = Pick<
   maplibre.FlyToOptions,

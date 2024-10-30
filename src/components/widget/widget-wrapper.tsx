@@ -1,9 +1,9 @@
 import "@/services/setup";
 import { ShellWidget } from "./shell";
+import { Separator } from "../ui/separator";
 import { QueryGridWidget } from "./query-grid";
 import { QueryPointWidget } from "./query-point";
-import { Separator } from "../ui/separator";
-import { Label } from "../ui/label";
+import { SavedQueryWidget } from "./saved-query";
 
 const WidgetWrapper = () => {
   return (
@@ -11,6 +11,8 @@ const WidgetWrapper = () => {
       <QueryPointWidget />
       <Separator orientation="horizontal" />
       <QueryGridWidget />
+      <Separator orientation="horizontal" />
+      <SavedQueryWidget />
       <Separator orientation="horizontal" />
       <span class="text-muted-foreground text-sm">
         Use DB console if you want more access to the data

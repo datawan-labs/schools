@@ -13,7 +13,7 @@ const [worker] = createStore({
   }),
 });
 
-export type Legend = Map<
+export type LegendLayer = Map<
   string | number | undefined,
   {
     total: number;
@@ -24,10 +24,10 @@ export type Legend = Map<
   }
 >;
 
-interface LayerStore {
+export interface LayerStore {
   query: string;
   color?: ColorConfig;
-  legend?: Legend;
+  legend?: LegendLayer;
 }
 
 const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({

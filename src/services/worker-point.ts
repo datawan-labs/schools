@@ -1,4 +1,4 @@
-import { Legend } from "@/stores";
+import { LegendLayer } from "@/stores";
 import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
 import { tableFromIPC, Vector } from "apache-arrow";
@@ -29,7 +29,7 @@ export type WorkerPointData = {
   /**
    * legend is summary of the data with color
    */
-  legend: Legend;
+  legend: LegendLayer;
 
   /**
    * color in INT8 value
@@ -92,7 +92,7 @@ self.onmessage = async (event: MessageEvent<WorkerPointInput>) => {
    * legend will be used to show the mathing color, value, and
    * it's total.
    */
-  const legend: Legend = new Map();
+  const legend: LegendLayer = new Map();
 
   for (let index = 0; index < length; index++) {
     const coord = (WKBCoords as Vector).get(index);

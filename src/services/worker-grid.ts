@@ -2,7 +2,7 @@ import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
 import { tableFromIPC, Vector } from "apache-arrow";
 import { ColorConfig, getColorSchema } from "@/libs/colors";
-import { Legend } from "@/stores";
+import { LegendLayer } from "@/stores";
 
 /**
  * input for this worker
@@ -23,7 +23,7 @@ export type WorkerGridData = {
   /**
    * quantile of the data
    */
-  legend: Legend;
+  legend: LegendLayer;
   /**
    * color in INT8 value
    */
@@ -82,7 +82,7 @@ self.onmessage = async (event: MessageEvent<WorkerGridInput>) => {
   /**
    * create legend with cutoff
    */
-  const legend: Legend = new Map(
+  const legend: LegendLayer = new Map(
     Array.from({ length: event.data.color.length }).map((_, id) => {
       return [
         (min! + (id + 1) * width).toFixed(2).toString(),
