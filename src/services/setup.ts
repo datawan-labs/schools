@@ -8,8 +8,15 @@ await connection.send(`INSTALL spatial;`);
 await connection.send(`LOAD spatial;`);
 
 await db.registerFileURL(
-  "final.parquet",
-  `${window.location.origin}/final.parquet`,
+  "sekolah.parquet",
+  `${window.location.origin}/sekolah.parquet`,
+  DuckDBDataProtocol.HTTP,
+  false
+);
+
+await db.registerFileURL(
+  "popgrid.parquet",
+  `${window.location.origin}/popgrid.parquet`,
   DuckDBDataProtocol.HTTP,
   false
 );

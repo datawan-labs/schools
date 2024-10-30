@@ -1,3 +1,4 @@
+import { useGridDataLayer } from "./grid";
 import { usePointDataLayer } from "./point";
 import { DeckGLOverlay } from "@/components/ui/maps";
 
@@ -5,7 +6,9 @@ import { DeckGLOverlay } from "@/components/ui/maps";
  * all layers from deck.gl instance
  */
 export const Layers = () => {
-  const layer = usePointDataLayer();
+  const grid = useGridDataLayer();
 
-  return <DeckGLOverlay layers={[layer()]} />;
+  const point = usePointDataLayer();
+
+  return <DeckGLOverlay layers={[grid(), point()]} />;
 };

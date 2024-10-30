@@ -100,8 +100,8 @@ const DrawerContainer = () => {
 
 const LegendContainer = () => {
   return (
-    <Card class="hidden lg:flex lg:flex-col">
-      <CardContent class="p-0">
+    <Card class="hidden overflow-hidden lg:flex lg:flex-col">
+      <CardContent class="p-0 overflow-auto">
         <Legend />
       </CardContent>
     </Card>
@@ -117,7 +117,7 @@ export const Widget = () => {
       <div class="absolute bottom-0 w-full p-4">
         <DrawerContainer />
       </div>
-      <div class="absolute p-4 lg:top-0 lg:right-0 lg:bottom-auto lg:max-w-sm">
+      <div class="absolute z-10 flex max-h-svh flex-col overflow-hidden p-4 lg:top-0 lg:right-0 lg:bottom-auto lg:max-w-sm">
         <LegendContainer />
       </div>
     </div>

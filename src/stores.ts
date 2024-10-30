@@ -5,10 +5,9 @@ import { createStore, createMutable } from "solid-js/store";
  * we save worker to store so we can use it anywhere
  */
 const [worker] = createStore({
-  /**
-   * worker for storing worker object, we use in store
-   * so we can use it anywhere
-   */
+  grid: new Worker(new URL("./services/worker-grid.ts", import.meta.url), {
+    type: "module",
+  }),
   point: new Worker(new URL("./services/worker-point.ts", import.meta.url), {
     type: "module",
   }),
@@ -31,17 +30,28 @@ interface LayerStore {
   legend?: Legend;
 }
 
-const layer = createMutable<{ point: LayerStore }>({
+const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({
+  grid: {
+    query:
+      "SELECT value, ST_AsWKB(location) as location FROM popgrid.parquet WHERE kode_provinsi = '33'",
+    legend: new Map(),
+    color: {
+      code: "Turbo",
+      alpha: 255,
+      length: 32,
+      reverse: false,
+    },
+  },
   point: {
     query:
-      "SELECT jenjang as color, ST_AsWKB(location) as location, 500 as radius FROM final.parquet LIMIT 10000;",
+      "SELECT jenjang as color, ST_AsWKB(location) as location, 500 as radius FROM sekolah.parquet LIMIT 10000;",
+    legend: new Map(),
     color: {
       code: "Viridis",
       alpha: 255,
       length: 8,
       reverse: false,
     },
-    legend: new Map(),
   },
 });
 
