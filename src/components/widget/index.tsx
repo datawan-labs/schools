@@ -13,7 +13,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const Widgets = lazy(() => import("@/components/widget/widget-wrapper"));
+const WidgetMobile = lazy(() => {
+  return import("@/components/widget/widget-wrapper-mobile");
+});
+
+const WidgetDekstop = lazy(() => {
+  return import("@/components/widget/widget-wrapper-desktop");
+});
 
 const SidebarContainer = () => {
   return (
@@ -50,7 +56,7 @@ const SidebarContainer = () => {
       </CardHeader>
       <CardContent class="overflow-auto">
         <Suspense fallback={<WidgetLoader />}>
-          <Widgets />
+          <WidgetDekstop />
         </Suspense>
       </CardContent>
     </Card>
@@ -61,13 +67,13 @@ const DrawerContainer = () => {
   return (
     <div class="flex w-full flex-col items-center justify-center lg:hidden">
       <Drawer>
-        <DrawerTrigger as={Button} class="w-full flex-1 uppercase">
-          settings
+        <DrawerTrigger as={Button} variant="outline" class="uppercase">
+          Menu
         </DrawerTrigger>
         <DrawerContent>
           <div class="m-auto w-full max-w-lg">
             <Suspense fallback="loading...">
-              <Widgets />
+              <WidgetMobile />
             </Suspense>
           </div>
         </DrawerContent>
