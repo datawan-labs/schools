@@ -1,5 +1,5 @@
-import { MAP_STYLES } from "./constants";
 import { ColorConfig } from "./libs/colors";
+import { MAP_STYLES, SAVED_QUERY } from "./constants";
 import { createStore, createMutable } from "solid-js/store";
 
 const config = createMutable({
@@ -41,8 +41,7 @@ export interface LayerStore {
 
 const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({
   grid: {
-    query:
-      "SELECT value, ST_AsWKB(location) as location FROM popgrid.parquet WHERE kode_provinsi = '33'",
+    query: SAVED_QUERY[0].layer.grid.query,
     legend: new Map(),
     color: {
       code: "Turbo",
@@ -52,8 +51,7 @@ const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({
     },
   },
   point: {
-    query:
-      "SELECT jenjang as color, ST_AsWKB(location) as location, 500 as radius FROM sekolah.parquet LIMIT 10000;",
+    query: SAVED_QUERY[0].layer.point.query,
     legend: new Map(),
     color: {
       code: "Viridis",

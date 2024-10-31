@@ -2,8 +2,8 @@ import { layer } from "@/stores";
 import { cn } from "@/libs/classnames";
 import { createList } from "solid-list";
 import { createMemo, For } from "solid-js";
-import { triggerPointQuery } from "@/services/trigger";
 import { Button } from "@/components/ui/button";
+import { triggerPointQuery } from "@/services/trigger";
 import { CodeEditor } from "@/components/ui/code-editor";
 import { ColorCode, getAllColorSchemas } from "@/libs/colors";
 import {

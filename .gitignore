@@ -1,4 +1,3 @@
-
 dist
 .solid
 .output
@@ -27,6 +26,3 @@ gitignore
 # System Files
 .DS_Store
 Thumbs.db
-
-# parquet in public (we use custom plugin to move when build)
-/public/*.parquet

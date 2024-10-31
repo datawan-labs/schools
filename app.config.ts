@@ -8,6 +8,10 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   ssr: false,
+  server: {
+    static: true,
+    preset: "cloudflare-pages-static"
+  },
   vite: {
     resolve: {
       alias: {
@@ -22,8 +26,5 @@ export default defineConfig({
         usePolling: true,
       },
     },
-  },
-  server: {
-    static: true,
   },
 });
