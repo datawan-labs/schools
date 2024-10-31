@@ -9,14 +9,14 @@ await connection.send(`LOAD spatial;`);
 
 await db.registerFileURL(
   "sekolah.parquet",
-  `${window.location.origin}/sekolah.parquet`,
+  "https://datawan.sgp1.digitaloceanspaces.com/parquet/sekolah.parquet",
   DuckDBDataProtocol.HTTP,
   false
 );
 
 await db.registerFileURL(
   "popgrid.parquet",
-  `${window.location.origin}/popgrid.parquet`,
+  "https://datawan.sgp1.digitaloceanspaces.com/parquet/popgrid.parquet",
   DuckDBDataProtocol.HTTP,
   false
 );
