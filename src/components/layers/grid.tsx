@@ -53,7 +53,7 @@ export const useGridDataLayer = () => {
 
     layer.grid.legend = e.data.legend;
 
-    toast.info(`finishing process in ${e.data.timer} ms`);
+    toast.info(`finishing process in ${e.data.timer.toFixed(2)} ms`);
   };
 
   worker.grid.addEventListener("message", processMessage);

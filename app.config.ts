@@ -22,12 +22,7 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
-      exclude: [
-        "@duckdb/duckdb-wasm",
-        "apache-arrow",
-        "@loaders.gl/wkt",
-        "@loaders.gl/core",
-      ],
+      exclude: ["@duckdb/duckdb-wasm"],
     },
     server: {
       watch: {

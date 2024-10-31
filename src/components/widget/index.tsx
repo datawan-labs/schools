@@ -71,8 +71,8 @@ const DrawerContainer = () => {
           Menu
         </DrawerTrigger>
         <DrawerContent>
-          <div class="m-auto w-full max-w-lg">
-            <Suspense fallback="loading...">
+          <div class="m-auto w-full max-w-lg p-4">
+            <Suspense fallback={<WidgetLoader />}>
               <WidgetMobile />
             </Suspense>
           </div>

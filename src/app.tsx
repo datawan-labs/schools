@@ -15,7 +15,7 @@ export default function App() {
         <MetaProvider>
           <Suspense>
             {props.children}
-            <Toaster />
+            <Toaster position="top-center" />
           </Suspense>
         </MetaProvider>
       )}

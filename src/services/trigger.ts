@@ -1,14 +1,14 @@
-import { db } from "@/libs/duck";
 import { toast } from "solid-sonner";
+import { connection } from "./setup";
 import { unwrap } from "solid-js/store";
 import { layer, worker } from "@/stores";
 import { tableToIPC } from "apache-arrow";
 import { WorkerGridInput } from "./worker-grid";
 import { WorkerPointInput } from "./worker-point";
 
-const connection = await db.connect();
-
 export const triggerPointQuery = async (query: string) => {
+  toast.info("querying data...");
+
   const result = await connection.query(query).catch((error) => {
     toast.error(error.message);
   });
@@ -26,6 +26,8 @@ export const triggerPointQuery = async (query: string) => {
 };
 
 export const triggerGridQuery = async (query: string) => {
+  toast.info("querying data...");
+
   const result = await connection.query(query).catch((error) => {
     toast.error(error.message);
   });
