@@ -66,12 +66,12 @@ const SidebarContainer = () => {
 const DrawerContainer = () => {
   return (
     <div class="flex w-full flex-col items-center justify-center lg:hidden">
-      <Drawer>
-        <DrawerTrigger as={Button} variant="outline" class="uppercase">
-          Menu
+      <Drawer snapPoints={[0, 0.25, 1]}>
+        <DrawerTrigger as={Button} variant="outline" class="z-10 uppercase">
+          Analytics
         </DrawerTrigger>
-        <DrawerContent>
-          <div class="m-auto w-full max-w-lg p-4">
+        <DrawerContent class="flex max-h-svh flex-col">
+          <div class="m-auto flex h-full w-full max-w-lg flex-1 flex-col overflow-auto p-4">
             <Suspense fallback={<WidgetLoader />}>
               <WidgetMobile />
             </Suspense>

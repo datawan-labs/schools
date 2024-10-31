@@ -41,18 +41,21 @@ await connection.send(`INSTALL spatial;`);
 
 await connection.send(`LOAD spatial;`);
 
+const BASE_DATA_URL =
+  import.meta.env.VITE_BASE_DATA_URL || window.location.origin;
+
 await db.registerFileURL(
   "sekolah.parquet",
-  "https://datawan.sgp1.digitaloceanspaces.com/parquet/sekolah.parquet",
+  `${BASE_DATA_URL}/sekolah.parquet`,
   duckdb.DuckDBDataProtocol.HTTP,
   false
 );
 
 await db.registerFileURL(
   "popgrid.parquet",
-  "https://datawan.sgp1.digitaloceanspaces.com/parquet/popgrid.parquet",
+  `${BASE_DATA_URL}/popgrid.parquet`,
   duckdb.DuckDBDataProtocol.HTTP,
   false
 );
 
-export { connection };
+export { db, connection };

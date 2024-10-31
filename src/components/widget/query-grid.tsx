@@ -2,8 +2,10 @@ import { layer } from "@/stores";
 import { cn } from "@/libs/classnames";
 import { createList } from "solid-list";
 import { createMemo, For } from "solid-js";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { triggerGridQuery } from "@/services/trigger";
+import { IconPlayerPlay } from "@tabler/icons-solidjs";
 import { CodeEditor } from "@/components/ui/code-editor";
 import { ColorCode, getAllColorSchemas } from "@/libs/colors";
 import {
@@ -25,8 +27,6 @@ import {
   SliderTrack,
   SliderValueLabel,
 } from "@/components/ui/slider";
-import { Label } from "../ui/label";
-import { IconPlayCard, IconPlayerPlay } from "@tabler/icons-solidjs";
 
 const ColorSelector = () => {
   const colors = createMemo(() => {
