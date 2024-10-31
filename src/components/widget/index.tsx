@@ -1,11 +1,10 @@
+import { Legend } from "./legend";
 import { lazy, Suspense } from "solid-js";
-import { useMap } from "@/components/ui/maps";
 import { WidgetLoader } from "./widget-loader";
 import { Button } from "@/components/ui/button";
 import DatawanLogo from "@/assets/text-dark.png";
-import { DATAWAN_MAPS_STYLE } from "@/libs/maps";
+import { IconBrandGithub } from "@tabler/icons-solidjs";
 import { Image, ImageFallback, ImageRoot } from "@/components/ui/image";
-import { IconBrandGithub, IconMapDiscount } from "@tabler/icons-solidjs";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,23 +12,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Legend } from "./legend";
 
 const Widgets = lazy(() => import("@/components/widget/widget-wrapper"));
 
 const SidebarContainer = () => {
-  const map = useMap();
-
-  /**
-   * change basemaps based on current styles
-   */
-  const changeBaseMaps = () =>
-    map()?.setStyle(
-      (map()?.getStyle().sprite as string).includes("dark")
-        ? DATAWAN_MAPS_STYLE.grayscale
-        : DATAWAN_MAPS_STYLE.dark
-    );
-
   return (
     <Card class="hidden w-full overflow-hidden lg:flex lg:flex-col">
       <CardHeader class="flex w-full flex-row items-center justify-between border-b py-1">
@@ -59,14 +45,6 @@ const SidebarContainer = () => {
               </Button>
             </TooltipTrigger>
             <TooltipContent>GitHub</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button size="icon" variant="ghost" onclick={changeBaseMaps}>
-                <IconMapDiscount class="size-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Change Basemaps</TooltipContent>
           </Tooltip>
         </div>
       </CardHeader>

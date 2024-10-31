@@ -1,5 +1,14 @@
+import { MAP_STYLES } from "./constants";
 import { ColorConfig } from "./libs/colors";
 import { createStore, createMutable } from "solid-js/store";
+
+const config = createMutable({
+  query: undefined as number | undefined,
+  /**
+   * map style config
+   */
+  styles: MAP_STYLES[0],
+});
 
 /**
  * we save worker to store so we can use it anywhere
@@ -55,4 +64,4 @@ const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({
   },
 });
 
-export { worker, layer };
+export { worker, layer, config };
