@@ -10,7 +10,6 @@ export default defineConfig({
   ssr: false,
   server: {
     static: true,
-    preset: "cloudflare-pages-static",
     compressPublicAssets: {
       gzip: false,
       brotli: false,
@@ -23,7 +22,12 @@ export default defineConfig({
       },
     },
     optimizeDeps: {
-      exclude: ["@duckdb/duckdb-wasm"],
+      exclude: [
+        "@duckdb/duckdb-wasm",
+        "apache-arrow",
+        "@loaders.gl/wkt",
+        "@loaders.gl/core",
+      ],
     },
     server: {
       watch: {

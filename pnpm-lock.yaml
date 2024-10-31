@@ -63,8 +63,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0
       apache-arrow:
-        specifier: ^18.0.0
-        version: 18.0.0
+        specifier: ^17.0.0
+        version: 17.0.0
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -1686,10 +1686,6 @@ packages:
 
   apache-arrow@17.0.0:
     resolution: {integrity: sha512-X0p7auzdnGuhYMVKYINdQssS4EcKec9TCXyez/qtJt32DrIMGbzqiaMiQ0X6fQlQpw8Fl0Qygcv4dfRAr5Gu9Q==}
-    hasBin: true
-
-  apache-arrow@18.0.0:
-    resolution: {integrity: sha512-gFlPaqN9osetbB83zC29AbbZqGiCuFH1vyyPseJ+B7SIbfBtESV62mMT/CkiIt77W6ykC/nTWFzTXFs0Uldg4g==}
     hasBin: true
 
   aproba@2.0.0:
@@ -5629,18 +5625,6 @@ snapshots:
       picomatch: 2.3.1
 
   apache-arrow@17.0.0:
-    dependencies:
-      '@swc/helpers': 0.5.13
-      '@types/command-line-args': 5.2.3
-      '@types/command-line-usage': 5.0.4
-      '@types/node': 20.16.13
-      command-line-args: 5.2.1
-      command-line-usage: 7.0.3
-      flatbuffers: 24.3.25
-      json-bignum: 0.0.3
-      tslib: 2.8.0
-
-  apache-arrow@18.0.0:
     dependencies:
       '@swc/helpers': 0.5.13
       '@types/command-line-args': 5.2.3

@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start",
+    "start": "vinxi start --dir dist",
     "lint": "biome check --verbose --write ."
   },
   "dependencies": {
@@ -26,7 +26,7 @@
     "@solidjs/start": "^1.0.9",
     "@tabler/icons-solidjs": "^3.21.0",
     "@xterm/xterm": "^5.5.0",
-    "apache-arrow": "^18.0.0",
+    "apache-arrow": "^17.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "codemirror": "^6.0.1",

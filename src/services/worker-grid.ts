@@ -1,8 +1,8 @@
+import { LegendLayer } from "@/stores";
 import { load } from "@loaders.gl/core";
 import { WKBLoader } from "@loaders.gl/wkt";
 import { tableFromIPC, Vector } from "apache-arrow";
 import { ColorConfig, getColorSchema } from "@/libs/colors";
-import { LegendLayer } from "@/stores";
 
 /**
  * input for this worker
@@ -117,7 +117,6 @@ self.onmessage = async (event: MessageEvent<WorkerGridInput>) => {
 
     const value = values?.get(index) || 0;
 
-    // const lastCutoff = cutOff.find((x) => Math.log(value) <= Math.log(Number(x!)));
     const lastCutoff = cutOff.find((x) => value <= Number(x!));
 
     flatColors.set(legend.get(lastCutoff)!.color, 4 * index);
