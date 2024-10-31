@@ -10,7 +10,10 @@ export default defineConfig({
   ssr: false,
   server: {
     static: true,
-    preset: "cloudflare-pages-static"
+    preset: "cloudflare-pages-static",
+    compressPublicAssets: {
+      brotli: false,
+    },
   },
   vite: {
     resolve: {
