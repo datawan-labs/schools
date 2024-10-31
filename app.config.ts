@@ -12,6 +12,7 @@ export default defineConfig({
     static: true,
     preset: "cloudflare-pages-static",
     compressPublicAssets: {
+      gzip: false,
       brotli: false,
     },
   },
