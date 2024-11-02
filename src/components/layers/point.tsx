@@ -8,7 +8,7 @@ import { ScatterplotLayer, ScatterplotLayerProps } from "@deck.gl/layers";
 type PointLayerProps = Partial<
   Omit<ScatterplotLayerProps, "data" | "onHover">
 > & {
-  onHover?: (index: number) => void;
+  onHover?: (x: number, y: number, index: number | undefined) => void;
 
   data: {
     /**
@@ -39,7 +39,8 @@ const usePointLayer = (props: PointLayerProps) =>
      * because deck.gl still fires hover even the index
      * is -1
      */
-    onHover: (e) => e.index > 0 && props.onHover?.(e.index),
+    onHover: (e) =>
+      props.onHover?.(e.x, e.y, e.index > 0 ? e.index : undefined),
     data: {
       length: props.data.coordinates.length / 2,
       attributes: {
@@ -62,8 +63,14 @@ export const usePointDataLayer = () => {
     coordinates: new Float64Array(),
   });
 
-  const showTooltip = (index: number) =>
-    console.log(table()?.get(index)?.toJSON());
+  const showTooltip = (x: number, y: number, index: number | undefined) => {
+    if (!index) layer.point.tooltip = undefined;
+    else
+      layer.point.tooltip = {
+        position: { x, y },
+        data: table()?.get(index)?.toJSON() as Record<string, unknown>,
+      };
+  };
 
   const points = () => usePointLayer({ data: data(), onHover: showTooltip });
 

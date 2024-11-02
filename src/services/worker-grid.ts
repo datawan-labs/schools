@@ -21,6 +21,10 @@ export type WorkerGridData = {
    */
   timer: number;
   /**
+   * IPC buffer for apache arrow tables
+   */
+  table: Uint8Array;
+  /**
    * quantile of the data
    */
   legend: LegendLayer;
@@ -129,10 +133,11 @@ self.onmessage = async (event: MessageEvent<WorkerGridInput>) => {
   (self as unknown as Worker).postMessage(
     {
       timer: end - start,
+      table: event.data.table,
       legend: legend,
       colors: flatColors,
       coordinates: flatCoordinates,
     } as WorkerGridData,
-    [flatColors.buffer, flatCoordinates.buffer]
+    [event.data.table.buffer, flatColors.buffer, flatCoordinates.buffer]
   );
 };

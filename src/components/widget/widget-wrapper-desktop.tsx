@@ -1,9 +1,10 @@
 import "@/services/setup";
 import { ShellWidget } from "./shell";
-import { Separator } from "../ui/separator";
 import { QueryGridWidget } from "./query-grid";
 import { QueryPointWidget } from "./query-point";
+import { Separator } from "@/components/ui/separator";
 import { SelectorSavedQuery } from "./selector-query";
+import { LayersTooltipToogle } from "./layers-tooltip";
 import { SelectorMapStyles } from "./selector-map-styles";
 
 const WidgetWrapper = () => {
@@ -19,7 +20,10 @@ const WidgetWrapper = () => {
         </div>
       </div>
       <Separator orientation="horizontal" />
-      <SelectorMapStyles />
+      <div class="flex flex-row items-center gap-4">
+        <SelectorMapStyles />
+        <LayersTooltipToogle />
+      </div>
       <Separator orientation="horizontal" />
       <span class="text-muted-foreground text-sm">
         Use DB console if you want more access to the data

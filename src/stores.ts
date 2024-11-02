@@ -3,7 +3,14 @@ import { MAP_STYLES, SAVED_QUERY } from "./constants";
 import { createStore, createMutable } from "solid-js/store";
 
 const config = createMutable({
+  /**
+   * selected from saved query
+   */
   query: undefined as number | undefined,
+  /**
+   * maps tooltip
+   */
+  tooltip: false as boolean,
   /**
    * map style config
    */
@@ -37,6 +44,13 @@ export interface LayerStore {
   query: string;
   color?: ColorConfig;
   legend?: LegendLayer;
+  tooltip?: {
+    position: {
+      x: number;
+      y: number;
+    };
+    data?: Record<string, unknown>;
+  };
 }
 
 const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({

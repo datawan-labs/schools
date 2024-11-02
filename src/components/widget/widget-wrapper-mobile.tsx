@@ -1,5 +1,5 @@
 import "@/services/setup";
-import { Legend } from "./legend";
+import { LayersLegend } from "./layers-legend";
 import { SelectorSavedQuery } from "./selector-query";
 import { SelectorMapStyles } from "./selector-map-styles";
 
@@ -8,7 +8,7 @@ const WidgetWrapper = () => {
     <div class="flex flex-col space-y-2 py-4">
       <SelectorSavedQuery />
       <div class="rounded-md border">
-        <Legend />
+        <LayersLegend />
       </div>
       <SelectorMapStyles />
     </div>

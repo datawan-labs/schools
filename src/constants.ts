@@ -53,8 +53,8 @@ type SavedQuery = {
   title: string;
   description: string;
   layer: {
-    grid: LayerStore;
-    point: LayerStore;
+    grid: Pick<LayerStore, "query" | "color">;
+    point: Pick<LayerStore, "query" | "color">;
   };
   map?: {
     bbox: LngLatBoundsLike;

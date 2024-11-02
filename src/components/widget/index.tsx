@@ -1,4 +1,4 @@
-import { Legend } from "./legend";
+import { LayersLegend } from "./layers-legend";
 import { lazy, Suspense } from "solid-js";
 import { WidgetLoader } from "./widget-loader";
 import { Button } from "@/components/ui/button";
@@ -86,7 +86,7 @@ const LegendContainer = () => {
   return (
     <Card class="hidden overflow-hidden lg:flex lg:flex-col">
       <CardContent class="overflow-auto p-0">
-        <Legend />
+        <LayersLegend />
       </CardContent>
     </Card>
   );

@@ -2,7 +2,7 @@ import { layer } from "@/stores";
 import { For, Show } from "solid-js";
 import { Label } from "@/components/ui/label";
 
-export const Legend = () => {
+export const LayersLegend = () => {
   return (
     <div>
       <Show when={layer.point.legend!.size > 0}>

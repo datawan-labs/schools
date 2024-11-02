@@ -3,6 +3,7 @@ import { Title } from "@solidjs/meta";
 import { Widget } from "@/components/widget";
 import { Layers } from "@/components/layers";
 import { MapInstance, MapProvider } from "@/components/ui/maps";
+import { LayersTooltip } from "@/components/widget/layers-tooltip";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
           }}
         />
         <Widget />
+        <LayersTooltip />
         <Layers />
       </MapProvider>
     </main>

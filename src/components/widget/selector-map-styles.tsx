@@ -11,7 +11,7 @@ import {
 
 export const SelectorMapStyles = () => {
   return (
-    <div class="space-y-2">
+    <div class="flex-1 space-y-2">
       <Label>Map Style</Label>
       <Select
         options={MAP_STYLES}
