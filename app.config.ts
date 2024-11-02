@@ -11,7 +11,6 @@ export default defineConfig({
   server: {
     static: true,
     compressPublicAssets: {
-      gzip: false,
       brotli: false,
     },
   },

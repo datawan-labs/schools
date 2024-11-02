@@ -107,7 +107,7 @@ export const SAVED_QUERY: SavedQuery[] = [
           FROM 
             sekolah.parquet
           WHERE 
-            kode_provinsi = 31 AND
+            kode_provinsi = '31' AND
             location_status = 'valid'`),
         color: {
           alpha: 255,
@@ -155,8 +155,9 @@ export const SAVED_QUERY: SavedQuery[] = [
           FROM 
             sekolah.parquet
           WHERE 
-            kode_kabupaten IN [3507, 3573] AND
-            jenjang IN ['SMA', 'SMK', 'MA']`),
+            kode_kabupaten IN ['3507', '3573'] AND
+            jenjang IN ['SMA', 'SMK', 'MA'] AND
+            location_status = 'valid'`),
         color: {
           alpha: 255,
           code: "Magma",
@@ -203,8 +204,9 @@ export const SAVED_QUERY: SavedQuery[] = [
           FROM 
             sekolah.parquet
           WHERE 
-            kode_kabupaten IN [3204, 3273] AND
-            jenjang IN ['SD', 'MI']`),
+            kode_kabupaten IN ['3204', '3273'] AND
+            jenjang IN ['SD', 'MI'] AND
+            location_status = 'valid'`),
         color: {
           alpha: 255,
           code: "Magma",
