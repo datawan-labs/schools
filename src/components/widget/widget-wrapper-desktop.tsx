@@ -1,5 +1,6 @@
 import "@/services/setup";
 import { ShellWidget } from "./shell";
+import { MetadataWidget } from "./metadata";
 import { QueryGridWidget } from "./query-grid";
 import { QueryPointWidget } from "./query-point";
 import { Separator } from "@/components/ui/separator";
@@ -28,7 +29,10 @@ const WidgetWrapper = () => {
       <span class="text-muted-foreground text-sm">
         Use DB console if you want more access to the data
       </span>
-      <ShellWidget />
+      <div class="flex w-full flex-row gap-2">
+        <MetadataWidget />
+        <ShellWidget />
+      </div>
     </div>
   );
 };

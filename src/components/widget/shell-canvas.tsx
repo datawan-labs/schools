@@ -19,10 +19,7 @@ const ShellCanvas = () => {
   });
 
   return (
-    <div
-      class="relative aspect-video w-full overflow-scroll"
-      ref={container!}
-    />
+    <div class="relative h-full w-full overflow-scroll" ref={container!} />
   );
 };
 
