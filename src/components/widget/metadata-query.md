@@ -5,6 +5,8 @@ We use [duckdb](https://duckdb.org/) as query engine to query our data directly 
 
 You can query whatever you want from this data, like filtering only specific conditions or display all of data, As long as you follow the rules, your query and the data will be display correctly on maps.
 
+> For more information, go to [github page](https://github.com/datawan-labs/schools)
+
 ## Schools Location (`sekolah.parquet`)
 
 You can return any columns from your query, but to display the data on the maps, your query results must include the following columns:
@@ -15,7 +17,7 @@ You can return any columns from your query, but to display the data on the maps,
 | `color`                          | no       | `-`     | We will generate a legend based on this column. After the query is completed, we will compare it to generate colors based on the values and the total colors used. You can use any column, but return the column name as `color`                                |
 | `radius`                         | no       | `50`    | Similar to the color, you can customize the radius (in meters) of each point by returning a `radius` column.                                                                                                                                                    |
 
-Additional columns from you query, such as `nama`, `pd` or others, etc (refers to [this](#metadata)) and this column will be shown in tooltip only when you hover the data.
+Additional columns from you query, such as `nama`, `pd` or others, etc (refers to metadata bellow) and this column will be shown in tooltip only when you hover the data.
 
 ### Metadata
 

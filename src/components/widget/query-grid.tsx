@@ -41,17 +41,16 @@ const ColorSelector = () => {
     },
   });
 
+  const activeColor = () =>
+    layer.grid.color?.reverse
+      ? colors()[layer.grid.color!.code].slice().reverse()
+      : colors()[layer.grid.color!.code];
+
   return (
     <Popover>
       <PopoverTrigger>
         <Button variant="outline" class="flex h-4 w-full flex-row p-0">
-          <For
-            each={
-              layer.grid.color?.reverse
-                ? colors()[active() as ColorCode].slice().reverse()
-                : colors()[active() as ColorCode]
-            }
-          >
+          <For each={activeColor()}>
             {(color) => (
               <div
                 class="h-full flex-1 first:rounded-l-md last:rounded-r-md"

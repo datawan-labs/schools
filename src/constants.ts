@@ -84,9 +84,9 @@ function formatQuery(query: string) {
  */
 export const SAVED_QUERY: SavedQuery[] = [
   {
-    id: "jakarta",
-    title: "All Schools in Jakarta Province",
-    description: "Schools in Jakarta",
+    id: "jakarta-hs",
+    title: "High Schools in Jakarta",
+    description: "Sort of modern Sparta...",
     layer: {
       grid: {
         query: formatQuery(`
@@ -108,6 +108,7 @@ export const SAVED_QUERY: SavedQuery[] = [
             sekolah.parquet
           WHERE 
             kode_provinsi = '31' AND
+            jenjang IN ['SMA', 'SMK', 'MA'] AND
             location_status = 'valid'`),
         color: {
           alpha: 255,
@@ -126,9 +127,10 @@ export const SAVED_QUERY: SavedQuery[] = [
     },
   },
   {
-    id: "malang-es",
-    title: "All Senior High Schools in Malang",
-    description: "Show senior high schools in malang city, East Java",
+    id: "malang-hs",
+    title: "Public High Schools in 500m radius, Malang",
+    description:
+      "All public Senior High Schools in malang, compared to population grid",
     layer: {
       grid: {
         query: formatQuery(`
@@ -138,46 +140,48 @@ export const SAVED_QUERY: SavedQuery[] = [
           FROM 
             popgrid.parquet
           WHERE 
-            kode_kabupaten IN ['3507', '3573']`),
+            kode_kabupaten IN ['3573']`),
         color: {
           alpha: 50,
           code: "Turbo",
-          length: 16,
+          length: 12,
           reverse: false,
         },
       },
       point: {
         query: formatQuery(`
           SELECT
+            nama,
             500 as radius,
-            jenjang as color,
+            nama as color,
             ST_AsWKB(location) as location
           FROM 
             sekolah.parquet
           WHERE 
-            kode_kabupaten IN ['3507', '3573'] AND
-            jenjang IN ['SMA', 'SMK', 'MA'] AND
+            kode_kabupaten IN ['3573'] AND
+            jenjang = 'SMA' AND
+            status = 'negeri' AND
             location_status = 'valid'`),
         color: {
-          alpha: 255,
-          code: "Magma",
-          length: 3,
-          reverse: false,
+          alpha: 150,
+          code: "Cool",
+          length: 16,
+          reverse: true,
         },
       },
     },
     map: {
       styles: MAP_STYLES[0],
       bbox: [
-        [112.2874069, -8.46415819999993],
-        [112.959591, -7.761085],
+        [112.569, -8.051],
+        [112.695, -7.911],
       ],
     },
   },
   {
     id: "bandung-elementary",
-    title: "All Elementary Schools in Bandung",
-    description: "Show Elementary Schools in Bandung, West Java",
+    title: "Elementary Schools in Bandung",
+    description: "Elementary Schools in Bandung, West Java",
     layer: {
       grid: {
         query: formatQuery(`
@@ -187,7 +191,7 @@ export const SAVED_QUERY: SavedQuery[] = [
           FROM 
             popgrid.parquet
           WHERE 
-            kode_kabupaten IN ['3204', '3273']`),
+            kode_kabupaten IN ['3273']`),
         color: {
           alpha: 50,
           code: "Turbo",
@@ -198,13 +202,13 @@ export const SAVED_QUERY: SavedQuery[] = [
       point: {
         query: formatQuery(`
           SELECT
-            250 as radius,
+            100 as radius,
             jenjang as color,
             ST_AsWKB(location) as location
           FROM 
             sekolah.parquet
           WHERE 
-            kode_kabupaten IN ['3204', '3273'] AND
+            kode_kabupaten IN ['3273'] AND
             jenjang IN ['SD', 'MI'] AND
             location_status = 'valid'`),
         color: {
@@ -218,8 +222,275 @@ export const SAVED_QUERY: SavedQuery[] = [
     map: {
       styles: MAP_STYLES[1],
       bbox: [
-        [107.2510377, -7.31607359999998],
-        [107.9315644, -6.81082279999993],
+        [107.546, -6.97],
+        [107.739, -6.837],
+      ],
+    },
+  },
+  {
+    id: "bali-schools",
+    title: "Bali Education",
+    description: "Schools In Bali",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 
+            value,
+            ST_AsWKB(location) as location
+          FROM 
+            popgrid.parquet
+          WHERE 
+            provinsi = 'Bali'`),
+        color: {
+          alpha: 50,
+          code: "Turbo",
+          length: 16,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT
+            nama,
+            200 as radius,
+            jenjang as color,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            provinsi = 'Bali' AND
+            location_status = 'valid'
+          ORDER BY jenjang`),
+        color: {
+          alpha: 255,
+          code: "Turbo",
+          length: 16,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[9],
+      bbox: [
+        [114.432, -8.847],
+        [115.71, -8.061],
+      ],
+    },
+  },
+  {
+    id: "north-sumatera",
+    title: "Public or Private in North Sumatera",
+    description: "All Public or Private Schools in North Sumatera",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 50,
+          code: "Turbo",
+          length: 16,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT
+            nama,
+            300 as radius,
+            status as color,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            kode_provinsi = '12' AND
+            location_status = 'valid'
+          ORDER BY jenjang`),
+        color: {
+          alpha: 255,
+          code: "Viridis",
+          length: 3,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[3],
+      bbox: [
+        [97.059, -0.639],
+        [100.424, 4.292],
+      ],
+    },
+  },
+  {
+    id: "jakarta-pop-grid",
+    title: "Jakarta Population Grid",
+    description: "Jakarta Population Density 1km*1km",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 
+            value,
+            ST_AsWKB(location) as location
+          FROM 
+            popgrid.parquet
+          WHERE 
+            kode_provinsi = '31'
+        `),
+        color: {
+          alpha: 50,
+          code: "Magma",
+          length: 32,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 255,
+          code: "Viridis",
+          length: 3,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[2],
+      bbox: [
+        [106.50387, -6.421073],
+        [107.190172, -6.075695],
+      ],
+    },
+  },
+  {
+    id: "java-pop-grid",
+    title: "Population Density In Java",
+    description: "Jakarta Population Density 1km*1km",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 
+            value,
+            ST_AsWKB(location) as location
+          FROM 
+            popgrid.parquet
+          WHERE 
+            kode_provinsi IN ['31', '32', '33', '34', '35', '36']
+        `),
+        color: {
+          alpha: 255,
+          code: "Magma",
+          length: 32,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 255,
+          code: "Viridis",
+          length: 3,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[3],
+      bbox: [
+        [105.101, -8.78],
+        [115.907, -5.499],
+      ],
+    },
+  },
+  {
+    id: "makassar-hs",
+    title: "Makassar Junior High Schools",
+    description: "All Junior High Schools in Makassar",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 255,
+          code: "Magma",
+          length: 32,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT
+            nama,
+            100 as radius,
+            jenjang as color,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            kode_kabupaten IN ['7371'] AND
+            jenjang IN ['SMP', 'MTs'] AND
+            location_status = 'valid'
+        `),
+        color: {
+          alpha: 255,
+          code: "Viridis",
+          length: 3,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[3],
+      bbox: [
+        [119.271, -5.234],
+        [119.543, -5.006],
+      ],
+    },
+  },
+  {
+    id: "indonesia-full",
+    title: "All Schools in Indonesia",
+    description: "Even though you can query everything, please be carefull",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 255,
+          code: "Magma",
+          length: 32,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT
+            500 as radius,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            location_status = 'valid'
+        `),
+        color: {
+          alpha: 255,
+          code: "Viridis",
+          length: 3,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[3],
+      bbox: [
+        [95.0, -11.0],
+        [141.0, 6.0],
       ],
     },
   },

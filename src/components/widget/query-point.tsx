@@ -44,17 +44,16 @@ const ColorSelector = () => {
     },
   });
 
+  const activeColor = () =>
+    layer.point.color?.reverse
+      ? colors()[layer.point.color!.code].slice().reverse()
+      : colors()[layer.point.color!.code];
+
   return (
     <Popover>
       <PopoverTrigger>
         <Button variant="outline" class="flex h-4 w-full flex-row p-0">
-          <For
-            each={
-              layer.point.color?.reverse
-                ? colors()[active() as ColorCode].slice().reverse()
-                : colors()[active() as ColorCode]
-            }
-          >
+          <For each={activeColor()}>
             {(color) => (
               <div
                 class="h-full flex-1 first:rounded-l-md last:rounded-r-md"
@@ -119,6 +118,7 @@ const ColorSelector = () => {
           <For each={Object.keys(colors())}>
             {(color) => (
               <div
+                title={color}
                 onclick={() => setActive(color)}
                 class={cn(
                   "flex cursor-pointer flex-col rounded-sm p-1 hover:bg-accent",
