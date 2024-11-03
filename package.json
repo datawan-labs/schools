@@ -23,7 +23,7 @@
     "@loaders.gl/wkt": "^4.3.2",
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.0",
-    "@solidjs/start": "^1.0.9",
+    "@solidjs/start": "^1.0.10",
     "@tabler/icons-solidjs": "^3.21.0",
     "@xterm/xterm": "^5.5.0",
     "apache-arrow": "^17.0.0",
