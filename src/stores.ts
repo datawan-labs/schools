@@ -55,7 +55,7 @@ export interface LayerStore {
 
 const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({
   grid: {
-    query: SAVED_QUERY[0].layer.grid.query,
+    query: SAVED_QUERY[3].layer.grid.query,
     legend: new Map(),
     color: {
       code: "Turbo",
@@ -65,7 +65,7 @@ const layer = createMutable<{ point: LayerStore; grid: LayerStore }>({
     },
   },
   point: {
-    query: SAVED_QUERY[0].layer.point.query,
+    query: SAVED_QUERY[3].layer.point.query,
     legend: new Map(),
     color: {
       code: "Viridis",

@@ -1,12 +1,16 @@
 import { lazy, Suspense } from "solid-js";
+import { Label } from "@/components/ui/label";
 import { LayersLegend } from "./layers-legend";
 import { WidgetLoader } from "./widget-loader";
 import { Button } from "@/components/ui/button";
 import DatawanLogo from "@/assets/text-dark.png";
-import { IconBrandGithub } from "@tabler/icons-solidjs";
 import { Image, ImageFallback, ImageRoot } from "@/components/ui/image";
 import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  IconBrandGithub,
+  IconChartAreaLineFilled,
+} from "@tabler/icons-solidjs";
 import {
   Tooltip,
   TooltipContent,
@@ -28,7 +32,12 @@ const SidebarContainer = () => {
         <CardTitle>
           <Tooltip>
             <TooltipTrigger>
-              <ImageRoot class="w-auto rounded-none">
+              <ImageRoot
+                as="a"
+                target="_blank"
+                href="https://datawan.id"
+                class="w-max rounded-none"
+              >
                 <Image class="aspect-auto" src={DatawanLogo} />
                 <ImageFallback>Datawan</ImageFallback>
               </ImageRoot>
@@ -67,11 +76,40 @@ const DrawerContainer = () => {
   return (
     <div class="flex w-full flex-col items-center justify-center lg:hidden">
       <Drawer snapPoints={[0, 0.25, 1]}>
-        <DrawerTrigger as={Button} variant="outline" class="z-10 uppercase">
-          Analytics
+        <DrawerTrigger
+          as={Button}
+          variant="outline"
+          class="z-10 space-x-2 uppercase"
+        >
+          <IconChartAreaLineFilled class="size-4 stroke-[1.5px]" />
+          <span>SAVED QUERY</span>
         </DrawerTrigger>
         <DrawerContent class="flex max-h-svh flex-col">
-          <div class="m-auto flex h-full w-full max-w-lg flex-1 flex-col overflow-auto p-4">
+          <div class="m-auto flex h-full w-full max-w-lg flex-1 flex-col gap-y-2 overflow-auto p-4">
+            <div class="flex flex-row items-center justify-between">
+              <ImageRoot
+                as="a"
+                target="_blank"
+                href="https://datawan.id"
+                class="w-max rounded-none"
+              >
+                <Image class="aspect-auto" src={DatawanLogo} />
+                <ImageFallback>Datawan</ImageFallback>
+              </ImageRoot>
+              <Button
+                as="a"
+                size="icon"
+                target="_blank"
+                variant="ghost"
+                referrerPolicy="no-referrer"
+                href="https://github.com/datawan-labs/schools/"
+              >
+                <IconBrandGithub class="size-4" />
+              </Button>
+            </div>
+            <Label class="border-b pb-2 text-muted-foreground">
+              This app works best on desktop, We've limited features on mobile
+            </Label>
             <Suspense fallback={<WidgetLoader />}>
               <WidgetMobile />
             </Suspense>

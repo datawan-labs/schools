@@ -8,7 +8,7 @@ Indonesia’s geography makes it tricky to ensure schools are accessible across 
 
 <details>
   <summary>
-    Because of Mercator projections, it’s easy to get a bias view of how big certain countries are. If you’re curious about the actual size of Indonesia, here’s how it compares to Europe:
+    Because of Mercator projections, it’s easy to get distorted view of how big some countries are. If you’re curious about true size of Indonesia, here’s how it compares to Europe:
   </summary>
 
   <img src="./docs/indonesia-true-size.png">
@@ -25,7 +25,7 @@ In this section, I’ll explain my stacks choices for this project, the focus is
 
 #### Data
 
-You can check out the [data](#data) section for more details, but here’s how I manage that data. I’m working with two datasets, 475.272 rows with 21 columns covering schools across Indonesia and 573.841 rows with 6 columns center of 1km² population grid. Not big, but still big enough when transferring it over a network. So, I needed a way to store this data, query parts of it, and minimize the data transfer and storage costs.
+You can check out the [data](#data-1) section for more details, but here’s how I manage that data. I’m working with two datasets, 475.272 rows with 21 columns covering schools across Indonesia and 573.841 rows with 6 columns center of 1km² population grid. Not big, but still big enough when transferring it over a network. So, I needed a way to store this data, query parts of it, and minimize the data transfer and storage costs.
 
 Instead of setting up a traditional server-side database like PostgreSQL or MongoDB, I decided against using a DBMS here. Running a full DBMS just to store static data seemed overkill since this data doesn’t change. Managing a server to handle heavy data loads, while keeping response times low, can be complex and costly, especially when I’m not even updating the data regularly.
 
@@ -224,3 +224,7 @@ Table Name : [`popgrid.parquet`](./public/popgrid.parquet)
 | kode_kabupaten | VARCHAR   | District/city code (Kemendagri)          |
 | provinsi       | VARCHAR   | Province name (Kemendagri)               |
 | kabupaten      | VARCHAR   | District/city name (Kemendagri)          |
+
+## Misc
+
+For this project, we use Datawan Maps, You can explore more about it [here](https://maps.datawan.id/).

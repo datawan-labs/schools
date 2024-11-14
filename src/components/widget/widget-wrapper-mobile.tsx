@@ -5,7 +5,7 @@ import { SelectorMapStyles } from "./selector-map-styles";
 
 const WidgetWrapper = () => {
   return (
-    <div class="flex flex-col space-y-2 py-4">
+    <div class="flex flex-col space-y-2">
       <SelectorSavedQuery />
       <div class="rounded-md border">
         <LayersLegend />
