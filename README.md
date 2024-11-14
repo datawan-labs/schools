@@ -1,4 +1,4 @@
-# Visualizing School Distribution and Population Density in Indonesia
+# Datawan Labs: Visualizing School Distribution and Population Density in Indonesia
 
 ![Schools and Population Grid](./public/og.png)
 
@@ -6,9 +6,93 @@
 
 Indonesia’s geography makes it tricky to ensure schools are accessible across all regions. By mapping where people live alongside school locations, this study shows how spatial data can reveal patterns of educational access across the country. This approach helps create a clearer picture of how schools are distributed, making it easier to understand and address educational reach for communities throughout Indonesia.
 
-## How To
+<details>
+  <summary>
+    Because of Mercator projections, it’s easy to get a bias view of how big certain countries are. If you’re curious about the actual size of Indonesia, here’s how it compares to Europe:
+  </summary>
+
+  <img src="./docs/indonesia-true-size.png">
+
+</details>
+
+## Technical Details
+
+This project is my experiment with interactive big data visualizations for some upcoming projects. My goal is to see how less reources I can use to manage, process, and parse big data visualizations but the interactivity high. Here’s a breakdown of the choices I made and the reasons behind them.
+
+### Decisions On Stack
+
+This sections may be like a story when you make any website, why use this or that.
+
+In this section, I’ll explain my stacks choices for this project, the focus is on finding the right balance between performance, usability, and future readiness.
+
+#### Data
+
+You can check out the [data](#data) section for more details, but here’s how I manage that data. I’m working with two datasets, 475.272 rows with 21 columns covering schools across Indonesia and 573.841 rows with 6 columns center of 1km² population grid. Not big, but still big enough when transferring it over a network. So, I needed a way to store this data, query parts of it, and minimize the data transfer and storage costs.
+
+Instead of setting up a traditional server-side database like PostgreSQL or MongoDB, I decided against using a DBMS here. Running a full DBMS just to store static data seemed overkill since this data doesn’t change. Managing a server to handle heavy data loads, while keeping response times low, can be complex and costly, especially when I’m not even updating the data regularly.
+
+So, I thought: why not just use static files? It's like good idea right, but formats like JSON and CSV didn’t fit in because:
+
+1. They’re too big to transfer efficiently.
+2. I can dynamic query to the data.
+3. `JSON.parse` on a massive file is a performance nightmare
+4. They require loading the whole file at "once".\*
+
+So I need another static format that more effective and smaller, and I choose **parquet**. Parquet lets me compress the data effectively so the size will be smaller. Also we can query the data partially with SQL with duckdb-wasm (we will talk about it later) and we don't have to parse, because the data is in binary format and can be used easily with `duckdb` and `apache arrow`. duckdb-wasm enables more advanced features like partially consuming the data. as a result, we may not need to download the entire file for a query but only required bytes, then same request will not request again. Here comparison files size, in json, csv, and parquet for data used in this project:
+
+![File Size Comparison](./docs/chart.png)
+
+With Parquet, I can get file sizes 8-20 times smaller than JSON or CSV. Storing it as a static asset is also easier—just put it in S3 or similar storage.
+
+> If you use cloudflare, Because DuckDB query rely on [range header request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range), storing static files in cloudflare pages does not work because cloudflare pages / worker assets does not work with range request, but you can store it in R2, and add accept range headers.
+
+#### Solid Start
+
+I want this app to run with as few resources as possible, meaning no heavy servers if I can avoid it. I went with Solid Start as the framework because Solid Start offer more isomorphic way to create web apps, from what rendering method, server actions / functions, api handler, deployment preset and more. I started using only Client Side Rendering, and if I need to add new features that require server instead just SPA, I can do that easily, without much changes.
+
+> When this project is started, [SolidHack](https://hack.solidjs.com/) event was starting up too, so I thought—why not join in?
+
+#### Duck DB
+
+Since the main goal is interactivity, I want users to be able to customize anything, including the data. With a big dataset like this, I needed a way to query it straight from the client side. DuckDB was the perfect fit because it lets me query remote files in chunks, handles data parsing, and manages network requests smoothly.
+
+Duckdb offers extensions like SPATIAL extension that we can use to add more features to our apps, such as query data in specific location, radius-based searches, etc.
+
+If you wonder why not just run DuckDB on a server and send the binary results to the client?. this approach is also possible and one of my options, but every query send to server, the data must be transfered back to client even if it is same query or logically same. If we use duckdb wasm in client, every request to duckdb does not alwasy trigger network request if the data or partial data is already available in memory. So the more query you made, the faster query result is.
+
+#### Maplibre GL & Deck.gl
+
+Maplibre GL is fork of MapBox when mapbox use propertiary license. This fork offer features almost same in mapbox. We use maplibre and deck.gl to visualize hundreds thousand of Point Of Interest without lag and more performants.
+
+#### Web Worker for Post Processing
+
+After the data’s queried, we need to process the result, like calculating for legend values, generating colors, and so on. I use web workers for this, which keeps the main thread free and prevents blocking. Also utilizing binary data to minimize in data transfer between worker thread to main thread or vice versa. duckdb return query result in apache arrow, then this data transfered to worker as buffer. Transfering buffer is prefered because we can use [Transferable Object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects) to speed up the data handoff between main thread to worker thread or vice versa. Offloading process to web worker also prevent blocking in main thread.
+
+![Worker](./docs/worker.png)
+
+> geometry column in duckdb need to return as WKB in the query, then we can transform it to FLoat64Array. because, geometry column used in duckdb is not common format, so we need another binary format for geometry, CMIIW. ([source](https://duckdb.org/2023/04/28/spatial.html#example-usage))
+
+To get better perfomance when visualizing data in maplibre, we utilizing binary format or [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) to store coordinates and colors data, like Uint8Array, Float64Array, etc, as stated [here](https://deck.gl/docs/developer-guide/performance#use-binary-data), it has more performance benefits. This operations happens in this web worker, check [schools-worker](./src/services/worker-point.ts) and [grid-worker](./src/services/worker-grid.ts).
+
+Using web worker in solid is easy, just store worker object in [solid store](./src/stores.ts) then you can listen worker message from multiple components.
+
+### What The Catch
+
+This approach has some caveats, most of them in duckdb:
+
+- DuckDB WASM file is big, compared to sqlite-wasm or pglite
+- DuckDB WASM still does not manage [request waterfall](https://github.com/duckdb/duckdb-wasm/issues/1087), and still cannot persist the data to local browser storage, like indexedDB or [OPFS](https://github.com/duckdb/duckdb-wasm/pull/1490).
+- This project works best if you just want to create visualizations with static data, for dynamic data where you need to update the data may be another approach is preferable.
+
+### What's next
+
+I have plan to try something like this, may be using another database engine like sqlite-wasm or [pglite](https://pglite.dev/), and experiment with dynamic data handling in both client and server contexts.
+
+## How To Use This Apps
 
 This website is built as playground, wtwo query handlers: one for querying school locations (Points of Interest) and the other for the population grid. and each has only one data source `sekolah.parquet` and `popgrid.parquet`. All query results will be processed before being displayed on the maps. You can query whatever you want, like filtering only specific conditions or display all of data, As long as you follow the rules, your query and the data will be display correctly on maps.
+
+> Sekolah is Indonesian words means 'schools' in english
 
 We use [duckdb](https://duckdb.org/) as query engine to query our data directly from your browser, You can use a SQL-like dialect to create your queries, and we also utilize the [SPATIAL EXTENSION](https://duckdb.org/2023/04/28/spatial.html). If you're unsure how to use it, you can open the DuckDB console to experiment with any queries or to run queries that you do not want to display on the maps.
 
@@ -22,7 +106,7 @@ You can return any columns from your query, but to display the data on the maps,
 | `color`                          | no       | `-`     | We will generate a legend based on this column. After the query is completed, we will compare it to generate colors based on the values and the total colors used. You can use any column, but return the column name as `color`                                |
 | `radius`                         | no       | `50`    | Similar to the color, you can customize the radius (in meters) of each point by returning a `radius` column.                                                                                                                                                    |
 
-Additional columns from you query, such as `nama`, `pd` or others, etc (refers to [this](#metadata)) and this column will be shown in tooltip only when you hover the data. 
+Additional columns from you query, such as `nama`, `pd` or others, etc (refers to [this](#metadata)) and this column will be shown in tooltip only when you hover the data.
 
 ### Population Density
 
@@ -43,29 +127,29 @@ Here is sample query if you want to use
     75 as radius,
     jenjang as color,
     ST_AsWKB(location) as location
-  FROM 
+  FROM
     sekolah.parquet
-  WHERE 
+  WHERE
     kode_provinsi = '31' AND
     jenjang IN ['SMA', 'SMK', 'MA'] AND
     location_status = 'valid'
   ```
 - Public Schools in Central Java
   ```sql
-  SELECT 
+  SELECT
     500 as radius,
     jenjang as color,
     ST_AsWKB(location) as location
-  FROM 
+  FROM
     sekolah.parquet
-  WHERE 
+  WHERE
     kode_provinsi = '33' AND
     status = 'negeri' AND
     location_status = 'valid'
   ```
 - Population Grid In Bali
   ```sql
-  SELECT 
+  SELECT
     value,
     ST_AsWKB(location) as location
   FROM
@@ -73,7 +157,6 @@ Here is sample query if you want to use
   WHERE
     provinsi = 'Bali'
   ```
-
 
 ## Data
 
