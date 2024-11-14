@@ -10,7 +10,7 @@ const config = createMutable({
   /**
    * maps tooltip
    */
-  tooltip: false as boolean,
+  tooltip: true as boolean,
   /**
    * map style config
    */

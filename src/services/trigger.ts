@@ -7,7 +7,7 @@ import { WorkerGridInput } from "./worker-grid";
 import { WorkerPointInput } from "./worker-point";
 
 export const triggerPointQuery = async (query: string) => {
-  toast.info("querying data...");
+  toast.loading("querying point data...", { id: "point" });
 
   const result = await connection.query(query).catch((error) => {
     toast.error(error.message);
@@ -15,7 +15,7 @@ export const triggerPointQuery = async (query: string) => {
 
   if (!result) return;
 
-  toast.info("procesing data...");
+  toast.loading("procesing point data...", { id: "point" });
 
   const table = tableToIPC(result);
 
@@ -26,7 +26,7 @@ export const triggerPointQuery = async (query: string) => {
 };
 
 export const triggerGridQuery = async (query: string) => {
-  toast.info("querying data...");
+  toast.loading("querying grid data...", { id: "grid" });
 
   const result = await connection.query(query).catch((error) => {
     toast.error(error.message);
@@ -34,7 +34,7 @@ export const triggerGridQuery = async (query: string) => {
 
   if (!result) return;
 
-  toast.info("procesing data...");
+  toast.loading("procesing grid data...", { id: "grid" });
 
   const table = tableToIPC(result);
 

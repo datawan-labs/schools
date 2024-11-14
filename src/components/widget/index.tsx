@@ -1,5 +1,5 @@
-import { LayersLegend } from "./layers-legend";
 import { lazy, Suspense } from "solid-js";
+import { LayersLegend } from "./layers-legend";
 import { WidgetLoader } from "./widget-loader";
 import { Button } from "@/components/ui/button";
 import DatawanLogo from "@/assets/text-dark.png";

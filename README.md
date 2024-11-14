@@ -21,8 +21,6 @@ This project is my experiment with interactive big data visualizations for some 
 
 ### Decisions On Stack
 
-This sections may be like a story when you make any website, why use this or that.
-
 In this section, I’ll explain my stacks choices for this project, the focus is on finding the right balance between performance, usability, and future readiness.
 
 #### Data
@@ -170,7 +168,7 @@ We collected data from both ministries websites and processed it to ensure consi
 
 #### Metadata
 
-Table Name : `sekolah.parquet`
+Table Name : [`sekolah.parquet`](./public/sekolah.parquet)
 
 | Column Name       | Data Type | Comments                                                                          |
 | ----------------- | --------- | --------------------------------------------------------------------------------- |
@@ -216,7 +214,7 @@ We convert the data from raster to xyz values then combine them with regencies g
 
 #### Metadata
 
-Table Name : `popgrid.parquet`
+Table Name : [`popgrid.parquet`](./public/popgrid.parquet)
 
 | Column Name    | Data Type | Comments                                 |
 | -------------- | --------- | ---------------------------------------- |

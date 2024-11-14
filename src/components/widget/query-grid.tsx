@@ -115,6 +115,7 @@ const ColorSelector = () => {
           <For each={Object.keys(colors())}>
             {(color) => (
               <div
+                title={color}
                 onclick={() => setActive(color)}
                 class={cn(
                   "flex cursor-pointer flex-col rounded-sm p-1 hover:bg-accent",

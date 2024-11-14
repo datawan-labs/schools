@@ -1,9 +1,9 @@
-import { layer, worker } from "@/stores";
 import { toast } from "solid-sonner";
+import { layer, worker } from "@/stores";
 import { createSignal, onCleanup } from "solid-js";
+import { Table, tableFromIPC } from "apache-arrow";
 import { WorkerGridData } from "@/services/worker-grid";
 import { GridCellLayer, GridCellLayerProps } from "@deck.gl/layers";
-import { Table, tableFromIPC } from "apache-arrow";
 
 type GridLayerProps = Partial<Omit<GridCellLayerProps, "data" | "onHover">> & {
   onHover?: (x: number, y: number, index: number | undefined) => void;
@@ -70,7 +70,9 @@ export const useGridDataLayer = () => {
 
     layer.grid.legend = e.data.legend;
 
-    toast.info(`finishing process in ${e.data.timer.toFixed(2)} ms`);
+    toast.success(`finish processing grid in ${e.data.timer.toFixed(2)} ms`, {
+      id: "grid",
+    });
   };
 
   worker.grid.addEventListener("message", processMessage);

@@ -1,3 +1,4 @@
+import { cn } from "@/libs/classnames";
 import { lazy, Suspense } from "solid-js";
 import { Button } from "@/components/ui/button";
 import { IconTableColumn } from "@tabler/icons-solidjs";
@@ -9,7 +10,6 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cn } from "@/libs/classnames";
 
 const Metadata = lazy(() => import("@/components/widget/metadata-query.md"));
 

@@ -85,7 +85,9 @@ export const usePointDataLayer = () => {
 
     layer.point.legend = e.data.legend;
 
-    toast.info(`finishing process in ${e.data.timer.toFixed(2)} ms`);
+    toast.success(`finish processing point in ${e.data.timer.toFixed(2)} ms`, {
+      id: "point",
+    });
   };
 
   worker.point.addEventListener("message", processMessage);

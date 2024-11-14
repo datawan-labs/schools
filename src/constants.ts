@@ -102,6 +102,7 @@ export const SAVED_QUERY: SavedQuery[] = [
       point: {
         query: formatQuery(`
           SELECT
+            nama,
             75 as radius,
             ST_AsWKB(location) as location
           FROM 
@@ -123,6 +124,55 @@ export const SAVED_QUERY: SavedQuery[] = [
       bbox: [
         [106.50387, -6.421073],
         [107.190172, -6.075695],
+      ],
+    },
+  },
+  {
+    id: "bandung-elementary",
+    title: "Elementary Schools in Bandung",
+    description: "Elementary Schools in Bandung, West Java",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 
+            value,
+            ST_AsWKB(location) as location
+          FROM 
+            popgrid.parquet
+          WHERE 
+            kode_kabupaten IN ['3273']`),
+        color: {
+          alpha: 50,
+          code: "Turbo",
+          length: 16,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT
+            100 as radius,
+            jenjang as color,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            kode_kabupaten IN ['3273'] AND
+            jenjang IN ['SD', 'MI'] AND
+            location_status = 'valid'`),
+        color: {
+          alpha: 255,
+          code: "Magma",
+          length: 3,
+          reverse: false,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[1],
+      bbox: [
+        [107.546, -6.97],
+        [107.739, -6.837],
       ],
     },
   },
@@ -175,55 +225,6 @@ export const SAVED_QUERY: SavedQuery[] = [
       bbox: [
         [112.569, -8.051],
         [112.695, -7.911],
-      ],
-    },
-  },
-  {
-    id: "bandung-elementary",
-    title: "Elementary Schools in Bandung",
-    description: "Elementary Schools in Bandung, West Java",
-    layer: {
-      grid: {
-        query: formatQuery(`
-          SELECT 
-            value,
-            ST_AsWKB(location) as location
-          FROM 
-            popgrid.parquet
-          WHERE 
-            kode_kabupaten IN ['3273']`),
-        color: {
-          alpha: 50,
-          code: "Turbo",
-          length: 16,
-          reverse: false,
-        },
-      },
-      point: {
-        query: formatQuery(`
-          SELECT
-            100 as radius,
-            jenjang as color,
-            ST_AsWKB(location) as location
-          FROM 
-            sekolah.parquet
-          WHERE 
-            kode_kabupaten IN ['3273'] AND
-            jenjang IN ['SD', 'MI'] AND
-            location_status = 'valid'`),
-        color: {
-          alpha: 255,
-          code: "Magma",
-          length: 3,
-          reverse: false,
-        },
-      },
-    },
-    map: {
-      styles: MAP_STYLES[1],
-      bbox: [
-        [107.546, -6.97],
-        [107.739, -6.837],
       ],
     },
   },
@@ -471,12 +472,53 @@ export const SAVED_QUERY: SavedQuery[] = [
       point: {
         query: formatQuery(`
           SELECT
+            nama,
             500 as radius,
             ST_AsWKB(location) as location
           FROM 
             sekolah.parquet
           WHERE 
             location_status = 'valid'
+        `),
+        color: {
+          alpha: 255,
+          code: "Viridis",
+          length: 3,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[3],
+      bbox: [
+        [95.0, -11.0],
+        [141.0, 6.0],
+      ],
+    },
+  },
+  {
+    id: "indonesia-popgrid",
+    title: "Population  Density in Indonesia",
+    description: "Everything, everywhere, all at once",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT
+            value,
+            ST_AsWKB(location) as location
+          FROM 
+            popgrid.parquet;
+        `),
+        color: {
+          alpha: 255,
+          code: "Turbo",
+          length: 32,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT 0
         `),
         color: {
           alpha: 255,
