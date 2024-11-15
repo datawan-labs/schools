@@ -24,8 +24,8 @@ const WidgetWrapper = () => {
         Try with our saved analytics, or open DB console if you want more access
         to the data
       </span>
-      <div class="flex max-h-32 w-full overflow-hidden rounded-sm border p-2">
-        <div class="flex-1 overflow-auto">
+      <div class="flex max-h-32 w-full overflow-hidden rounded-md border bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
+        <div class="flex-1 overflow-auto bg-background">
           <SelectorSavedQuery />
         </div>
       </div>

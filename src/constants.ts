@@ -324,6 +324,60 @@ export const SAVED_QUERY: SavedQuery[] = [
     },
   },
   {
+    id: "schools-near-borobudur",
+    title: "Schools near Borobudur Temple",
+    description:
+      "All Schools in 55000m radius from Borobudur Temple, Central Java",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 50,
+          code: "Turbo",
+          length: 12,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT 
+            nama,
+            jenjang,
+            alamat as adress,
+            500 as radius,
+            jenjang as color,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            location_status = 'valid' AND
+            ST_DWithin(
+              location, 
+              ST_Point(
+                110.20337, 
+                -7.60714
+              ), 
+            0.5); -- 55 km
+            `),
+        color: {
+          alpha: 150,
+          code: "Cool",
+          length: 16,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[0],
+      bbox: [
+        [108.94956, -8.16121],
+        [111.43249, -6.96676],
+      ],
+    },
+  },
+  {
     id: "jakarta-pop-grid",
     title: "Jakarta Population Grid",
     description: "Jakarta Population Density 1km*1km",
@@ -404,6 +458,51 @@ export const SAVED_QUERY: SavedQuery[] = [
       bbox: [
         [105.101, -8.78],
         [115.907, -5.499],
+      ],
+    },
+  },
+  {
+    id: "central-java-private",
+    title: "All Private Schools in Central Java",
+    description: "Private schools distribution in Central Java",
+    layer: {
+      grid: {
+        query: formatQuery(`
+          SELECT 0
+        `),
+        color: {
+          alpha: 50,
+          code: "Turbo",
+          length: 12,
+          reverse: false,
+        },
+      },
+      point: {
+        query: formatQuery(`
+          SELECT
+            nama,
+            500 as radius,
+            jenjang as color,
+            ST_AsWKB(location) as location
+          FROM 
+            sekolah.parquet
+          WHERE 
+            provinsi = 'Jawa Tengah' AND
+            status = 'swasta' AND
+            location_status = 'valid'`),
+        color: {
+          alpha: 150,
+          code: "Turbo",
+          length: 16,
+          reverse: true,
+        },
+      },
+    },
+    map: {
+      styles: MAP_STYLES[0],
+      bbox: [
+        [108.556, -8.211],
+        [111.691, -6.403],
       ],
     },
   },

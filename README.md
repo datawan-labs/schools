@@ -2,6 +2,8 @@
 
 ![Schools and Population Grid](./public/og.png)
 
+> Update for this project will be hold until until the voting period of [SolidHack](https://hack.solidjs.com/) is over.
+
 ## Background
 
 Indonesia’s geography makes it tricky to ensure schools are accessible across all regions. By mapping where people live alongside school locations, this study shows how spatial data can reveal patterns of educational access across the country. This approach helps create a clearer picture of how schools are distributed, making it easier to understand and address educational reach for communities throughout Indonesia.

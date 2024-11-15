@@ -11,7 +11,7 @@ export default function Home() {
         <MapInstance
           mapStyle={config.styles.styles}
           class="absolute top-0 left-0 size-full"
-          mapView={{ center: [106.847021, -6.248413], zoom: 6 }}
+          mapView={{ center: [112.70044, -2.72261], zoom: 5 }}
         />
         <Widget />
         <LayersTooltip />
