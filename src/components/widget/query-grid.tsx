@@ -27,6 +27,11 @@ import {
   SliderTrack,
   SliderValueLabel,
 } from "@/components/ui/slider";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const ColorSelector = () => {
   const colors = createMemo(() => {
@@ -155,13 +160,18 @@ export const QueryGridWidget = () => {
     <div class="flex w-full flex-col space-y-2">
       <div class="flex flex-row items-center justify-between">
         <Label>Population Grid</Label>
-        <Button
-          size="icon"
-          variant="ghost"
-          onclick={() => triggerGridQuery(layer.grid.query)}
-        >
-          <IconPlayerPlay class="size-4" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              class="h-7 items-center space-x-1 px-2 font-mono"
+              onclick={() => triggerGridQuery(layer.grid.query)}
+            >
+              <span>run</span>
+              <IconPlayerPlay class="size-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Run Grid Query</TooltipContent>
+        </Tooltip>
       </div>
       <ColorSelector />
       <CodeEditor

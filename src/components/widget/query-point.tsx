@@ -27,6 +27,11 @@ import {
   SwitchThumb,
   SwitchControl,
 } from "@/components/ui/switch";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 /**
  * color selector handler to
@@ -162,13 +167,18 @@ export const QueryPointWidget = () => {
     <div class="flex w-full flex-col space-y-2">
       <div class="flex flex-row items-center justify-between">
         <Label>Schools Location</Label>
-        <Button
-          size="icon"
-          variant="ghost"
-          onclick={() => triggerPointQuery(layer.point.query)}
-        >
-          <IconPlayerPlay class="size-4" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              class="h-7 items-center space-x-1 px-2 font-mono"
+              onclick={() => triggerPointQuery(layer.point.query)}
+            >
+              <span>run</span>
+              <IconPlayerPlay class="size-4" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Run Point Query</TooltipContent>
+        </Tooltip>
       </div>
       <ColorSelector />
       <CodeEditor

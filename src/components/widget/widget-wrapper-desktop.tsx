@@ -21,8 +21,7 @@ const WidgetWrapper = () => {
       </div>
       <Separator orientation="horizontal" />
       <span class="text-muted-foreground text-sm">
-        Try with our saved analytics, or open DB console if you want more access
-        to the data
+        Try with our saved query, Select one below to dive in!
       </span>
       <div class="flex max-h-32 w-full overflow-hidden rounded-md border bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
         <div class="flex-1 overflow-auto bg-background">
